@@ -1,4 +1,5 @@
 import { FC, ReactElement, useState } from "react";
+import api from "../../api";
 import Button from "../../components/Button";
 import CONSTANTS from "../../constants";
 import InputError from "../../containers/InputError";
@@ -67,7 +68,7 @@ const Register: FC<RegisterProps> = (): ReactElement => {
         setPhoneNumber(newValue);
     };
 
-    const onClickRegister = () => {
+    const onClickRegister = async () => {
         if (!firstName) {
             setFirstNameError(EMPTY_ERROR);
             return;
@@ -96,7 +97,15 @@ const Register: FC<RegisterProps> = (): ReactElement => {
             setPhoneNumberError(PHONE_NUMBER_ERROR);
             return;
         }
-
+        const data = { firstName, lastName, email, password, phoneNumber };
+        const res = await api.post(data, "/user");
+        if (res.status === 201) {
+            // TODO: Modal
+            console.log("registered");
+        } else {
+            // TODO: Modal
+            console.log("not registered");
+        }
         // TODO: put conditions for password
         console.log("register...");
     };
