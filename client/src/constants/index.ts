@@ -12,7 +12,8 @@ const CONSTANTS = {
             EMAIL_ERROR: "This is not a valid email.",
         },
         SUCCESS_MODAL: {
-            MESSAGE: "Your message was sent successfully!",
+            CONTACT_MESSAGE: "Your message was sent successfully!",
+            REGISTER: "Your account has been succesfully created!",
             CLOSE: "Close",
         },
         ERROR_MODAL: {

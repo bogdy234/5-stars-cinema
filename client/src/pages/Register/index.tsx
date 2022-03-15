@@ -1,6 +1,9 @@
 import { FC, ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import Button from "../../components/Button";
+import ErrorModal from "../../components/ErrorModal";
+import SuccessModal from "../../components/SuccessModal";
 import CONSTANTS from "../../constants";
 import InputError from "../../containers/InputError";
 import NavbarContainer from "../../containers/Navbar/container";
@@ -27,6 +30,7 @@ const {
 } = CONSTANTS.TEXT.REGISTER;
 
 const Register: FC<RegisterProps> = (): ReactElement => {
+    const navigate = useNavigate();
     const [firstNameError, setFirstNameError] = useState<string>("");
     const [firstName, setFirstName] = useState<string>("");
 
@@ -41,6 +45,9 @@ const Register: FC<RegisterProps> = (): ReactElement => {
 
     const [phoneNumberError, setPhoneNumberError] = useState<string>("");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
+
+    const [showSuccessModal, setShowSuccesModal] = useState<boolean>(false);
+    const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
     const onChangeFirstName = (newValue: string) => {
         setFirstNameError("");
@@ -100,18 +107,26 @@ const Register: FC<RegisterProps> = (): ReactElement => {
         const data = { firstName, lastName, email, password, phoneNumber };
         const res = await api.post(data, "/user");
         if (res.status === 201) {
-            // TODO: Modal
-            console.log("registered");
+            setShowSuccesModal(true);
         } else {
-            // TODO: Modal
-            console.log("not registered");
+            setShowErrorModal(true);
         }
         // TODO: put conditions for password
-        console.log("register...");
     };
+
+    const onCloseModal = () => {
+        navigate("/");
+    };
+
     return (
         <div className="bg-gray-700 min-h-screen w-full pb-20">
             <NavbarContainer />
+            <SuccessModal
+                showModal={showSuccessModal}
+                onClose={onCloseModal}
+                message={CONSTANTS.TEXT.SUCCESS_MODAL.REGISTER}
+            />
+            <ErrorModal showModal={showErrorModal} onClose={onCloseModal} />
             <div className="m-auto w-1/2 mt-8 flex flex-col gap-8">
                 <InputError
                     value={firstName}

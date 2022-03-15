@@ -7,6 +7,7 @@ import Icon from "../Icon";
 interface SuccessModalProps {
     showModal: boolean;
     onClose: () => void;
+    message: string;
 }
 
 const { SUCCESS_MODAL } = CONSTANTS.TEXT;
@@ -14,6 +15,7 @@ const { SUCCESS_MODAL } = CONSTANTS.TEXT;
 const SuccessModal: FC<SuccessModalProps> = ({
     showModal,
     onClose,
+    message,
 }: SuccessModalProps): ReactElement => {
     return (
         <Modal showModal={showModal}>
@@ -35,9 +37,9 @@ const SuccessModal: FC<SuccessModalProps> = ({
                         className={`flex justify-center items-center flex-col`}
                     >
                         <p
-                            className={`pt-6 pb-6 text-2xl w-5/6 md:w-1/2 text-center`}
+                            className={`pt-6 pb-6 text-2xl w-5/6 md:w-2/3 text-center`}
                         >
-                            {SUCCESS_MODAL.MESSAGE}
+                            {message}
                         </p>
                         <Button
                             onClick={onClose}

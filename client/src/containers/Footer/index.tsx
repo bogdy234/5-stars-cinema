@@ -128,7 +128,11 @@ const Footer: FC<FooterProps> = (): ReactElement => {
 
     return (
         <div className="h-screen bg-gray-700 flex flex-col items-center">
-            <SuccessModal showModal={showSuccess} onClose={toggleSuccess} />
+            <SuccessModal
+                showModal={showSuccess}
+                onClose={toggleSuccess}
+                message={CONSTANTS.TEXT.SUCCESS_MODAL.CONTACT_MESSAGE}
+            />
             <ErrorModal showModal={showError} onClose={toggleError} />
             <h1 className="text-gray-200  pt-12 pb-20 text-6xl">
                 {FOOTER.CONTACT_US}
