@@ -48,6 +48,14 @@ const CONSTANTS = {
             PASSWORD_ERROR: "Password should be blabla",
             PHONE_NUMBER_ERROR: "This is not a valid phone number.",
         },
+        MOVIE_CARD: {
+            FORMAT: "Format",
+            RATING: "Rating",
+            GENRE: "Gen",
+            PREMIERE: "Premiera",
+            THREE_D: "3D",
+            NORMAL: "Normal",
+        },
     },
     SERVER: "http://192.168.0.248:4000",
     SERVER_PATHS: {
