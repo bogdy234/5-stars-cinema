@@ -55,6 +55,7 @@ const CONSTANTS = {
             PREMIERE: "Premiera",
             THREE_D: "3D",
             NORMAL: "Normal",
+            TRAILER: "Trailer",
         },
     },
     SERVER: "http://192.168.0.248:4000",
