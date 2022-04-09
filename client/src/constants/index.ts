@@ -1,5 +1,15 @@
 const CONSTANTS = {
     TEXT: {
+        RESERVATION_MODAL:{
+            CONFIRM: 'Confirma',
+            PLEASE_SELECT:'Selecteaza data si ora:',
+        },
+        SEATS_AREA:{
+            SCREEN:"Ecran",
+            UNAVAILABLE: 'Indisponibil',
+            AVAILABLE:'Disponibil',
+            SELECTED:'Selectat',
+        },
         MOVIE_PAGE: {
             PREMIERE: "Premiera",
             TITLE: "Titlu",

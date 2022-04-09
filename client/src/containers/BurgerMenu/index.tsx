@@ -16,7 +16,7 @@ const BurgerMenu: FC<BurgerMenuProps> = (): ReactElement => {
                 <div className="w-8 h-0.5 bg-gray-300"></div>
                 <div className="w-8 h-0.5 bg-gray-300"></div>
                 <div className="w-8 h-0.5 bg-gray-300"></div>
-                <Dropdown show={showList} />
+                <Dropdown show={showList} options={["Logout"]} onClickOption={()=>{}}/>
             </div>
         </div>
     );
