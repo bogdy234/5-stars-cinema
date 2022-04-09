@@ -13,16 +13,15 @@ const Icon: FC<IconProps> = ({
     className,
     onClick,
 }: IconProps): ReactElement => {
-
     return (
-        <img
-            src={src}
-            alt={alt}
-            className={`${className} w-full h-full ${
-                onClick && "cursor-pointer"
-            }`}
-            onClick={onClick}
-        />
+        <div className={`${className}`}>
+            <img
+                src={src}
+                alt={alt}
+                className={`w-full h-full ${onClick && "cursor-pointer"}`}
+                onClick={onClick}
+            />
+        </div>
     );
 };
 

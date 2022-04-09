@@ -13,6 +13,7 @@ interface InputErrorProps {
     containerClassName?: string;
     errorInputContainerClassName?: string;
     password?: boolean;
+    setMaxWidthSmall?: boolean;
 }
 
 const InputError: FC<InputErrorProps> = ({
@@ -26,6 +27,7 @@ const InputError: FC<InputErrorProps> = ({
     containerClassName,
     errorInputContainerClassName,
     password,
+    setMaxWidthSmall,
 }: InputErrorProps): ReactElement => {
     return (
         <div
@@ -45,6 +47,7 @@ const InputError: FC<InputErrorProps> = ({
                 inputClassName={inputClassName}
                 label={label}
                 password={password}
+                setMaxWidthSmall={setMaxWidthSmall || false}
             />
         </div>
     );

@@ -27,3 +27,9 @@ export const isValidPhoneNumber = (phoneNumber: string) => {
     }
     return false;
 };
+
+export const formatMinutes = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const newMinutes = minutes % 60;
+    return `${hours}h ${newMinutes}min`;
+};

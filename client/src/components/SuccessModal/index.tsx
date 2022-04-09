@@ -44,7 +44,7 @@ const SuccessModal: FC<SuccessModalProps> = ({
                         <Button
                             onClick={onClose}
                             text={SUCCESS_MODAL.CLOSE}
-                            className={`bg-green-700 rounded-2xl w-40 h-16`}
+                            className={`bg-green-500 rounded-2xl w-40 h-16`}
                         />
                     </div>
                 </div>

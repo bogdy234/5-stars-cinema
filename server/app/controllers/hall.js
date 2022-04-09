@@ -1,42 +1,42 @@
 const express = require("express");
-const movieService = require("../services/movie");
+const hallService = require("../services/hall");
 
-const movieRouter = express.Router();
+const hallRouter = express.Router();
 
-function createMovie(request, response) {
+function createHall(request, response) {
     const value = request.body;
 
-    movieService.create(
+    hallService.create(
         value,
         (data) => response.status(201).json(data),
         (err) => response.status(400).json(err)
     );
 }
 
-const readMovie = (req, res) => {
+const readHall = (req, res) => {
     const value = req.query;
 
-    movieService.read(
+    hallService.read(
         value,
         (data) => res.status(201).json(data),
         (err) => res.status(400).json(err)
     );
 };
 
-const updateMovie = (req, res) => {
+const updateHall = (req, res) => {
     const value = req.body;
 
-    movieService.update(
+    hallService.update(
         value,
         (data) => res.status(201).json(data),
         (err) => res.status(400).json(err)
     );
 };
 
-const deleteMovie = (req, res) => {
+const deleteHall = (req, res) => {
     const value = req.query;
 
-    movieService.delete(
+    hallService.delete(
         value,
         () =>
             res
@@ -46,8 +46,8 @@ const deleteMovie = (req, res) => {
     );
 };
 
-const getAllMovies = (req, res) => {
-    movieService.getAllMovies(
+const getAllHalls = (req, res) => {
+    hallService.getAllHalls(
         (data) => {
             res.status(201).json(data);
         },
@@ -57,10 +57,10 @@ const getAllMovies = (req, res) => {
     );
 };
 
-movieRouter.route("").post(createMovie);
-movieRouter.route("").get(readMovie);
-movieRouter.route("").put(updateMovie);
-movieRouter.route("").delete(deleteMovie);
-movieRouter.route("/getAllMovies").get(getAllMovies);
+hallRouter.route("").post(createHall);
+hallRouter.route("").get(readHall);
+hallRouter.route("").put(updateHall);
+hallRouter.route("").delete(deleteHall);
+hallRouter.route("/getAllHalls").get(getAllHalls);
 
-module.exports = movieRouter;
+module.exports = hallRouter;

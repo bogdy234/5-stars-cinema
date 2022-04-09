@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const movieRouter = require("./controllers/movie");
 const userRouter = require("./controllers/user");
+const hallRouter = require("./controllers/hall");
+const reservationRouter = require("./controllers/reservation");
 
 require("dotenv").config();
 
@@ -34,6 +36,9 @@ function initRouters() {
     app.use(express.json());
     app.use("/user", userRouter);
     app.use("/movie", movieRouter);
+    app.use("/hall", hallRouter);
+    app.use("/reservation", reservationRouter);
+
 }
 
 (function run() {

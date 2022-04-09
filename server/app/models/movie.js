@@ -17,6 +17,7 @@ const movieSchema = new Schema({
   actors: String,
   is3D: Boolean,
   isPremiere: Boolean,
+  runningTimes: [Date],
   createdAt: { type: Date, default: Date.now },
   modifiedAt: { type: Date, default: Date.now },
 });

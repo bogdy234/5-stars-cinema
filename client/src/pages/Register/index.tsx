@@ -137,6 +137,7 @@ const Register: FC<RegisterProps> = (): ReactElement => {
                     containerClassName={containerClassName}
                     errorText={firstNameError}
                     errorInputContainerClassName={errorInputContainerClassName}
+                    setMaxWidthSmall
                 />
                 <InputError
                     value={lastName}
@@ -147,6 +148,7 @@ const Register: FC<RegisterProps> = (): ReactElement => {
                     containerClassName={containerClassName}
                     errorText={lastNameError}
                     errorInputContainerClassName={errorInputContainerClassName}
+                    setMaxWidthSmall
                 />
                 <InputError
                     value={email}
@@ -157,6 +159,7 @@ const Register: FC<RegisterProps> = (): ReactElement => {
                     containerClassName={containerClassName}
                     errorText={emailError}
                     errorInputContainerClassName={errorInputContainerClassName}
+                    setMaxWidthSmall
                 />
                 <InputError
                     value={password}
@@ -168,6 +171,7 @@ const Register: FC<RegisterProps> = (): ReactElement => {
                     errorText={passwordError}
                     errorInputContainerClassName={errorInputContainerClassName}
                     password
+                    setMaxWidthSmall
                 />
                 <InputError
                     value={phoneNumber}
@@ -178,12 +182,13 @@ const Register: FC<RegisterProps> = (): ReactElement => {
                     containerClassName={containerClassName}
                     errorText={phoneNumberError}
                     errorInputContainerClassName={errorInputContainerClassName}
+                    setMaxWidthSmall
                 />
                 <div className="w-full">
                     <Button
                         onClick={onClickRegister}
                         text={REGISTER}
-                        className={`w-36 h-8 mt-8 bg-[#03e9f4] text-white rounded hover:shadow-lg hover:shadow-cyan-300/50`}
+                        className={`w-36 h-8 mt-8 bg-[#03e9f4] text-black rounded hover:shadow-lg hover:shadow-cyan-300/50`}
                     />
                 </div>
             </div>

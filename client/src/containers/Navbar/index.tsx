@@ -4,18 +4,25 @@ import CONSTANTS from "../../constants";
 import { UserState } from "../../reducers/user";
 import LoginModalContainer from "../LoginModal/container";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
+import BurgerMenu from "../BurgerMenu";
 
 interface NavbarProps {
     userData?: UserState;
 }
 
-const { MY_ACCOUNT, HOME, LOGIN } = CONSTANTS.TEXT.NAVBAR;
+const { HOME, LOGIN } = CONSTANTS.TEXT.NAVBAR;
+const { SM } = CONSTANTS.SCREENS;
 
 const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
+    const matches = useMediaQuery(`(min-width:${SM})`);
     const navigate = useNavigate();
     const [showLogin, setShowLogin] = useState<boolean>(false);
 
     const toggle = () => {
+        if (userData?.isLoggedIn) {
+            return;
+        }
         setShowLogin((a) => !a);
     };
 
@@ -24,11 +31,15 @@ const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
         const { isLoggedIn, data } = userData;
         if (isLoggedIn) {
             return (
-                <Button
-                    onClick={toggle}
-                    text={`${MY_ACCOUNT}(${data?.firstName} ${data?.lastName})`}
-                    className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-100 h-16 pl-4 pr-4"
-                />
+                <>
+                    <Button
+                        leftIconSrc="/user-solid.svg"
+                        leftIconAlt="user-icon"
+                        onClick={toggle}
+                        text={`${data?.firstName} ${data?.lastName}`}
+                        className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-100 h-16 pl-4 pr-4"
+                    />
+                </>
             );
         } else {
             return (
@@ -45,20 +56,33 @@ const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
         navigate("/");
     };
 
-    return (
-        <div className="w-full h-24 bg-gray-800 flex justify-between items-center">
-            <Button
-                onClick={onClickHome}
-                text={HOME}
-                className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
-            />
-            {showLogin && (
+    const renderLogin = () => {
+        if (showLogin) {
+            return (
                 <LoginModalContainer
                     showModal={showLogin}
                     closeModal={toggle}
                 />
+            );
+        }
+        return null;
+    };
+
+    return (
+        <div className="w-full h-24 bg-gray-800 flex justify-between items-center">
+            {matches ? (
+                <>
+                    <Button
+                        onClick={onClickHome}
+                        text={HOME}
+                        className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+                    />
+                    {renderLogin()}
+                    {conditionalLogin()}
+                </>
+            ) : (
+                <BurgerMenu />
             )}
-            {conditionalLogin()}
         </div>
     );
 };
