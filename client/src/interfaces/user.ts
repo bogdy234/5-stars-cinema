@@ -16,5 +16,5 @@ export interface MovieInterface {
     actors: string;
     is3D: boolean;
     isPremiere: boolean;
-    runningTimes: Date[];
+    runningTimes: { time: Date, hallId: string }[];
 }

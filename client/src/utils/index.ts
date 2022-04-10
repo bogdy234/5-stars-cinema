@@ -17,7 +17,8 @@ export const isOnlyNumericInput = (phoneNumber: string) => {
     return true;
 };
 
-export const isValidPassword = (password: string) => {};
+export const isValidPassword = (password: string) => {
+};
 
 export const isValidPhoneNumber = (phoneNumber: string) => {
     const re =
@@ -33,3 +34,40 @@ export const formatMinutes = (minutes: number) => {
     const newMinutes = minutes % 60;
     return `${hours}h ${newMinutes}min`;
 };
+
+export const formatDate = (date: Date) => {
+    const showZeroDay = date.getDate() < 10;
+    const showZeroMonth = date.getMonth() < 10;
+    const newDate = `${showZeroDay ? '0' : ''}${date.getDate()}-${showZeroMonth && '0'}${date.getMonth() + 1}-${date.getFullYear()}`;
+    return newDate;
+}
+
+
+export const checkDays = (date: Date) => {
+    const today = new Date();
+    if (date.getFullYear() !== today.getFullYear()) {
+        return `${formatDate(date)}`;
+    }
+    if (date.getMonth() !== today.getMonth()) {
+        return `${formatDate(date)}`;
+    }
+    const days = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
+    let weekDay = '';
+    if (date.getDay() === today.getDay()) {
+        weekDay = 'Astazi';
+    } else if (date.getDay() === today.getDay() + 1) {
+        weekDay = 'Maine';
+    } else {
+        for (let i = 0; i < days.length; i++) {
+            if (i === date.getDay()) {
+                weekDay = `${days[i]}`;
+                break;
+            }
+        }
+    }
+    return `${weekDay}: ${formatDate(date)}`
+}
+
+export const eliminateSpaces = (a: string) => {
+    return a.replace(' ', '');
+}

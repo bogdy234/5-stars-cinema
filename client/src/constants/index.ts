@@ -1,14 +1,20 @@
 const CONSTANTS = {
     TEXT: {
-        RESERVATION_MODAL:{
-            CONFIRM: 'Confirma',
-            PLEASE_SELECT:'Selecteaza data si ora:',
+        SEATS: {
+            CONFIRM: "Confirma",
+            SUCCESS: "Rezervarea a fost realizata cu succes.",
         },
-        SEATS_AREA:{
-            SCREEN:"Ecran",
-            UNAVAILABLE: 'Indisponibil',
-            AVAILABLE:'Disponibil',
-            SELECTED:'Selectat',
+        RESERVATION_MODAL: {
+            CONFIRM: "Confirma",
+            PLEASE_SELECT: "Selecteaza data si ora:",
+        },
+        SEATS_AREA: {
+            SCREEN: "Ecran",
+            UNAVAILABLE: "Indisponibil",
+            AVAILABLE: "Disponibil",
+            SELECTED: "Selectat",
+            SELECTED_SEATS: "Locuri selectate:",
+            MAX_SEATS: "*Poti selecta un numar maxim de 5 locuri.",
         },
         MOVIE_PAGE: {
             PREMIERE: "Premiera",

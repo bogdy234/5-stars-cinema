@@ -6,6 +6,7 @@ import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import Register from "./pages/Register";
 import Movie from "./pages/Movie";
+import SeatsContainer from "./pages/Seats/container";
 
 function App() {
     return (
@@ -16,6 +17,10 @@ function App() {
                         <Route path="/" element={<Home />}></Route>
                         <Route path="/register" element={<Register />}></Route>
                         <Route path="/movie/:id" element={<Movie />} />
+                        <Route
+                            path="/seats/:movieId/:date/:time/:hallId"
+                            element={<SeatsContainer />}
+                        />
                     </Routes>
                 </BrowserRouter>
             </PersistGate>

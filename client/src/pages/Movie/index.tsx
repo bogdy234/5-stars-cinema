@@ -1,18 +1,22 @@
-import {useEffect, useState} from "react";
-import {FC, ReactElement} from "react";
-import {useParams} from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { FC, ReactElement } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../api";
 import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
 import Icon from "../../components/Icon";
 import TrailerModal from "../../components/TrailerModal";
 import CONSTANTS from "../../constants";
 import NavbarContainer from "../../containers/Navbar/container";
-import {MovieInterface} from "../../interfaces/user";
-import {formatMinutes} from "../../utils";
+import { MovieInterface } from "../../interfaces/user";
+import { checkDays, formatMinutes } from "../../utils";
 import ReservationModal from "../../components/ReservationModal";
 
-interface MovieProps {
+interface MovieProps {}
+
+interface DateOption {
+    date: string;
+    time: string;
+    hallId: string;
 }
 
 const {
@@ -27,11 +31,48 @@ const {
     RESERVE,
 } = CONSTANTS.TEXT.MOVIE_PAGE;
 
-const Movie: FC<MovieProps> = (): ReactElement => {
-    const [showReservationModal, setShowReservationModal] = useState<boolean>(false);
+const Movie: FC<MovieProps> = ({}): ReactElement => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [showReservationModal, setShowReservationModal] =
+        useState<boolean>(false);
     const [showTrailer, setShowTrailer] = useState<boolean>(false);
     const [movie, setMovie] = useState<MovieInterface | null>(null);
-    const {id} = useParams();
+    const [dateOptions, setDateOptions] = useState<DateOption[]>([]);
+    const [selectedDateOption, setSelectedDateOption] = useState<DateOption>(
+        {} as DateOption
+    );
+
+    const getMovieDateTimeOptions = useCallback(() => {
+        if (!movie) {
+            return;
+        }
+
+        const newDateOptions: DateOption[] = [];
+        movie.runningTimes.forEach((entry) => {
+            const stringToDate = new Date(`${entry.time}`);
+            const newDate = checkDays(stringToDate);
+            const newTime = `${stringToDate.getHours()}:${stringToDate.getMinutes()}`;
+            newDateOptions.push({
+                date: newDate,
+                time: newTime,
+                hallId: entry.hallId,
+            });
+        });
+        setDateOptions(newDateOptions);
+        setSelectedDateOption(newDateOptions[0]);
+    }, [movie]);
+
+    const getTimeOptionsForSelectedDate = () => {
+        const date = dateOptions.filter(
+            (option) => selectedDateOption.date === option.date
+        );
+        return date.map((option) => option.time);
+    };
+
+    const getDateOptions = () => {
+        return [...new Set(dateOptions.map((option) => option.date))];
+    };
 
     useEffect(() => {
         const getMovieData = async () => {
@@ -42,31 +83,44 @@ const Movie: FC<MovieProps> = (): ReactElement => {
         getMovieData();
     }, [id]);
 
+    useEffect(() => {
+        getMovieDateTimeOptions();
+    }, [getMovieDateTimeOptions]);
+
     const toggleTrailerModal = () => {
         setShowTrailer((a) => !a);
     };
 
     const onClickReserve = () => {
-        setShowReservationModal(a => !a);
+        setShowReservationModal((a) => !a);
     };
 
-    const getMovieDateOptions = () => {
-        const stringToDate = new Date(`${movie?.runningTimes[0]}`);
-        const showZeroDay = stringToDate.getDate() < 10;
-        const showZeroMonth = stringToDate.getMonth() < 10;
-        return `${showZeroDay && '0'}${stringToDate.getDate()}-${showZeroMonth && '0'}${stringToDate.getMonth() + 1}-${stringToDate.getFullYear()}`;
-    }
+    const onChangeDate = (newDate: string) => {
+        const newDateOption = dateOptions.filter(
+            (option) => option.date === newDate
+        )[0];
+        setSelectedDateOption(newDateOption);
+    };
 
-    const getMovieTimeOptions = () => {
-        const stringToDate = new Date(`${movie?.runningTimes[0]}`);
-        return `${stringToDate.getHours()}:${stringToDate.getMinutes()}`;
-    }
+    const onChangeTime = (newTime: string) => {
+        const newTimeOption = dateOptions.filter(
+            (option) => option.time === newTime
+        )[0];
+        setSelectedDateOption(newTimeOption);
+    };
 
-    console.log();
+    const onClickConfirm = () => {
+        navigate(
+            `/seats/${id}/${selectedDateOption.date.substring(
+                selectedDateOption.date.indexOf(": ") + 2,
+                selectedDateOption.date.length
+            )}/${selectedDateOption.time}/${selectedDateOption.hallId}`
+        );
+    };
 
     return (
         <div className="text-white">
-            <NavbarContainer/>
+            <NavbarContainer />
             {showTrailer && movie && movie?.trailerUrl && (
                 <TrailerModal
                     showModal={showTrailer}
@@ -74,8 +128,17 @@ const Movie: FC<MovieProps> = (): ReactElement => {
                     toggle={toggleTrailerModal}
                 />
             )}
-            <ReservationModal showModal={showReservationModal} onClose={onClickReserve} message={'test'}
-                              dateOptions={[getMovieDateOptions()]} timeOptions={[getMovieTimeOptions()]}/>
+            <ReservationModal
+                showModal={showReservationModal}
+                onClickConfirm={onClickConfirm}
+                message={"test"}
+                dateOptions={getDateOptions()}
+                timeOptions={getTimeOptionsForSelectedDate()}
+                selectedDateOption={selectedDateOption.date}
+                selectedTimeOption={selectedDateOption.time}
+                onChangeDate={onChangeDate}
+                onChangeTime={onChangeTime}
+            />
             {movie && (
                 <div className="md:px-20 lg:px-60 py-10">
                     <div className="mb-10 text-3xl">{movie.title}</div>
@@ -136,10 +199,11 @@ const Movie: FC<MovieProps> = (): ReactElement => {
                                 onClick={toggleTrailerModal}
                                 className={`w-20 h-8 bg-red-300 rounded-md ml-6 text-black`}
                                 leftIconSrc="/youtube-brands.svg"
-                                leftIconAlt="trailer-icon"/>
+                                leftIconAlt="trailer-icon"
+                            />
                         )}
                     </div>
-                    <div className="mt-10 border-b-2"></div>
+                    <div className="mt-10 border-b-2" />
                     <div className="mt-6 text-xl">{movie.description}</div>
                 </div>
             )}

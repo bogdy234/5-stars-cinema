@@ -41,8 +41,8 @@ const deleteReservation = (req, res) => {
         () =>
             res
                 .status(201)
-                .json({ message: "Successfully Deleted!", deleted: true }),
-        (err) => res.status(400).json({ message: err, deleted: false })
+                .json({message: "Successfully Deleted!", deleted: true}),
+        (err) => res.status(400).json({message: err, deleted: false})
     );
 };
 
@@ -52,7 +52,7 @@ const getAllReservations = (req, res) => {
             res.status(201).json(data);
         },
         (err) => {
-            res.status(400).json({ message: err });
+            res.status(400).json({message: err});
         }
     );
 };
@@ -66,7 +66,7 @@ const getUserReservations = (req, res) => {
             res.status(201).json(data);
         },
         (err) => {
-            res.status(400).json({ message: err });
+            res.status(400).json({message: err});
         }
     );
 };
@@ -80,10 +80,24 @@ const getMovieReservations = (req, res) => {
             res.status(201).json(data);
         },
         (err) => {
-            res.status(400).json({ message: err });
+            res.status(400).json({message: err});
         }
     );
 };
+
+const getReservedSeats = (req, res) => {
+    const item = req.query;
+
+    reservationService.getReservedSeats(
+        item,
+        (data) => {
+            res.status(201).json(data);
+        },
+        (err) => {
+            res.status(400).json({message: err});
+        }
+    );
+}
 
 reservationRouter.route("").post(createReservation);
 reservationRouter.route("").get(readReservation);
@@ -92,6 +106,7 @@ reservationRouter.route("").delete(deleteReservation);
 reservationRouter.route("/getAllReservations").get(getAllReservations);
 reservationRouter.route("/getUserReservations").get(getUserReservations);
 reservationRouter.route("/getMovieReservations").get(getMovieReservations);
+reservationRouter.route("/getReservedSeats").get(getReservedSeats);
 
 
 module.exports = reservationRouter;
