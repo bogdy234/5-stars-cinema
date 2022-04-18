@@ -10,205 +10,206 @@ import NavbarContainer from "../../containers/Navbar/container";
 import { MovieInterface } from "../../interfaces/user";
 import { checkDays, formatMinutes } from "../../utils";
 import ReservationModal from "../../components/ReservationModal";
+import theme from "../../theme";
 
 interface MovieProps {}
 
 interface DateOption {
-    date: string;
-    time: string;
-    hallId: string;
+  date: string;
+  time: string;
+  hallId: string;
 }
 
 const {
-    PREMIERE,
-    TITLE,
-    PRODUCTION_YEAR,
-    GENRE,
-    ACTORS,
-    FORMAT,
-    DIRECTION,
-    TRAILER,
-    RESERVE,
+  PREMIERE,
+  TITLE,
+  PRODUCTION_YEAR,
+  GENRE,
+  ACTORS,
+  FORMAT,
+  DIRECTION,
+  TRAILER,
+  RESERVE,
 } = CONSTANTS.TEXT.MOVIE_PAGE;
 
 const Movie: FC<MovieProps> = ({}): ReactElement => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [showReservationModal, setShowReservationModal] =
-        useState<boolean>(false);
-    const [showTrailer, setShowTrailer] = useState<boolean>(false);
-    const [movie, setMovie] = useState<MovieInterface | null>(null);
-    const [dateOptions, setDateOptions] = useState<DateOption[]>([]);
-    const [selectedDateOption, setSelectedDateOption] = useState<DateOption>(
-        {} as DateOption
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [showReservationModal, setShowReservationModal] =
+    useState<boolean>(false);
+  const [showTrailer, setShowTrailer] = useState<boolean>(false);
+  const [movie, setMovie] = useState<MovieInterface | null>(null);
+  const [dateOptions, setDateOptions] = useState<DateOption[]>([]);
+  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>(
+    {} as DateOption
+  );
+
+  const getMovieDateTimeOptions = useCallback(() => {
+    if (!movie) {
+      return;
+    }
+
+    const newDateOptions: DateOption[] = [];
+    movie.runningTimes.forEach((entry) => {
+      const stringToDate = new Date(`${entry.time}`);
+      const newDate = checkDays(stringToDate);
+      const newTime = `${stringToDate.getHours()}:${stringToDate.getMinutes()}`;
+      newDateOptions.push({
+        date: newDate,
+        time: newTime,
+        hallId: entry.hallId,
+      });
+    });
+    setDateOptions(newDateOptions);
+    setSelectedDateOption(newDateOptions[0]);
+  }, [movie]);
+
+  const getTimeOptionsForSelectedDate = () => {
+    const date = dateOptions.filter(
+      (option) => selectedDateOption.date === option.date
     );
+    return date.map((option) => option.time);
+  };
 
-    const getMovieDateTimeOptions = useCallback(() => {
-        if (!movie) {
-            return;
-        }
+  const getDateOptions = () => {
+    return [...new Set(dateOptions.map((option) => option.date))];
+  };
 
-        const newDateOptions: DateOption[] = [];
-        movie.runningTimes.forEach((entry) => {
-            const stringToDate = new Date(`${entry.time}`);
-            const newDate = checkDays(stringToDate);
-            const newTime = `${stringToDate.getHours()}:${stringToDate.getMinutes()}`;
-            newDateOptions.push({
-                date: newDate,
-                time: newTime,
-                hallId: entry.hallId,
-            });
-        });
-        setDateOptions(newDateOptions);
-        setSelectedDateOption(newDateOptions[0]);
-    }, [movie]);
-
-    const getTimeOptionsForSelectedDate = () => {
-        const date = dateOptions.filter(
-            (option) => selectedDateOption.date === option.date
-        );
-        return date.map((option) => option.time);
+  useEffect(() => {
+    const getMovieData = async () => {
+      const movieData = await api.get(`/movie?id=${id}`);
+      const movieJsonData = await movieData.json();
+      setMovie(movieJsonData[0]);
     };
+    getMovieData();
+  }, [id]);
 
-    const getDateOptions = () => {
-        return [...new Set(dateOptions.map((option) => option.date))];
-    };
+  useEffect(() => {
+    getMovieDateTimeOptions();
+  }, [getMovieDateTimeOptions]);
 
-    useEffect(() => {
-        const getMovieData = async () => {
-            const movieData = await api.get(`/movie?id=${id}`);
-            const movieJsonData = await movieData.json();
-            setMovie(movieJsonData[0]);
-        };
-        getMovieData();
-    }, [id]);
+  const toggleTrailerModal = () => {
+    setShowTrailer((a) => !a);
+  };
 
-    useEffect(() => {
-        getMovieDateTimeOptions();
-    }, [getMovieDateTimeOptions]);
+  const onClickReserve = () => {
+    setShowReservationModal((a) => !a);
+  };
 
-    const toggleTrailerModal = () => {
-        setShowTrailer((a) => !a);
-    };
+  const onChangeDate = (newDate: string) => {
+    const newDateOption = dateOptions.filter(
+      (option) => option.date === newDate
+    )[0];
+    setSelectedDateOption(newDateOption);
+  };
 
-    const onClickReserve = () => {
-        setShowReservationModal((a) => !a);
-    };
+  const onChangeTime = (newTime: string) => {
+    const newTimeOption = dateOptions.filter(
+      (option) => option.time === newTime
+    )[0];
+    setSelectedDateOption(newTimeOption);
+  };
 
-    const onChangeDate = (newDate: string) => {
-        const newDateOption = dateOptions.filter(
-            (option) => option.date === newDate
-        )[0];
-        setSelectedDateOption(newDateOption);
-    };
+  const onClickConfirm = () => {
+    navigate(
+      `/seats/${id}/${selectedDateOption.date.substring(
+        selectedDateOption.date.indexOf(": ") + 2,
+        selectedDateOption.date.length
+      )}/${selectedDateOption.time}/${selectedDateOption.hallId}`
+    );
+  };
 
-    const onChangeTime = (newTime: string) => {
-        const newTimeOption = dateOptions.filter(
-            (option) => option.time === newTime
-        )[0];
-        setSelectedDateOption(newTimeOption);
-    };
-
-    const onClickConfirm = () => {
-        navigate(
-            `/seats/${id}/${selectedDateOption.date.substring(
-                selectedDateOption.date.indexOf(": ") + 2,
-                selectedDateOption.date.length
-            )}/${selectedDateOption.time}/${selectedDateOption.hallId}`
-        );
-    };
-
-    return (
-        <div className="text-white">
-            <NavbarContainer />
-            {showTrailer && movie && movie?.trailerUrl && (
-                <TrailerModal
-                    showModal={showTrailer}
-                    youtubeLink={movie?.trailerUrl}
-                    toggle={toggleTrailerModal}
-                />
-            )}
-            <ReservationModal
-                showModal={showReservationModal}
-                onClickConfirm={onClickConfirm}
-                message={"test"}
-                dateOptions={getDateOptions()}
-                timeOptions={getTimeOptionsForSelectedDate()}
-                selectedDateOption={selectedDateOption.date}
-                selectedTimeOption={selectedDateOption.time}
-                onChangeDate={onChangeDate}
-                onChangeTime={onChangeTime}
+  return (
+    <div className="text-white">
+      <NavbarContainer />
+      {showTrailer && movie && movie?.trailerUrl && (
+        <TrailerModal
+          showModal={showTrailer}
+          youtubeLink={movie?.trailerUrl}
+          toggle={toggleTrailerModal}
+        />
+      )}
+      <ReservationModal
+        showModal={showReservationModal}
+        onClickConfirm={onClickConfirm}
+        message={"test"}
+        dateOptions={getDateOptions()}
+        timeOptions={getTimeOptionsForSelectedDate()}
+        selectedDateOption={selectedDateOption.date}
+        selectedTimeOption={selectedDateOption.time}
+        onChangeDate={onChangeDate}
+        onChangeTime={onChangeTime}
+      />
+      {movie && (
+        <div className="md:px-20 lg:px-60 py-10">
+          <div className="mb-10 text-3xl">{movie.title}</div>
+          <div className={`flex gap-10`}>
+            <Icon
+              src={movie.coverImageUrl}
+              alt="cover-image-url"
+              className="w-60 border-2 border-blue-300"
             />
-            {movie && (
-                <div className="md:px-20 lg:px-60 py-10">
-                    <div className="mb-10 text-3xl">{movie.title}</div>
-                    <div className={`flex gap-10`}>
-                        <Icon
-                            src={movie.coverImageUrl}
-                            alt="cover-image-url"
-                            className="w-60 border-2 border-blue-300"
-                        />
-                        <div>
-                            {movie.isPremiere && (
-                                <div className="flex items-center">
-                                    <Icon
-                                        src="/p-solid.svg"
-                                        alt="premiere-icon"
-                                        className="bg-blue-500 w-6 h-6 mr-1 border-2 border-blue-300"
-                                    />
-                                    <div>{PREMIERE}</div>
-                                </div>
-                            )}
-                            <div className="flex flex-col gap-10">
-                                <div>
-                                    {TITLE}: {movie.title}
-                                </div>
-                                <div>
-                                    {DIRECTION}: {movie.direction}
-                                </div>
-                                <div>
-                                    {ACTORS}: {movie.actors}
-                                </div>
-                                <div>
-                                    {GENRE}: {movie.genre}
-                                </div>
-                                <div>
-                                    {FORMAT}: {movie.is3D ? "3D" : "Normal"}
-                                </div>
-                                <div>
-                                    {PRODUCTION_YEAR}: {movie.productionYear}
-                                </div>
-                            </div>
-                            <Button
-                                onClick={onClickReserve}
-                                text={RESERVE}
-                                className={`w-36 h-8 mt-8 bg-[#03e9f4] text-black rounded hover:shadow-lg hover:shadow-cyan-300/50`}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex items-center mt-6">
-                        <Icon
-                            src={"/clock-solid.svg"}
-                            alt="clock-icon"
-                            className="w-4 h-4 mr-2 items-center"
-                        />
-                        <div>{formatMinutes(movie.length)}</div>
-                        {movie.trailerUrl && (
-                            <Button
-                                text={TRAILER}
-                                onClick={toggleTrailerModal}
-                                className={`w-20 h-8 bg-red-300 rounded-md ml-6 text-black`}
-                                leftIconSrc="/youtube-brands.svg"
-                                leftIconAlt="trailer-icon"
-                            />
-                        )}
-                    </div>
-                    <div className="mt-10 border-b-2" />
-                    <div className="mt-6 text-xl">{movie.description}</div>
+            <div>
+              {movie.isPremiere && (
+                <div className="flex items-center">
+                  <Icon
+                    src="/p-solid.svg"
+                    alt="premiere-icon"
+                    className="bg-blue-500 w-6 h-6 mr-1 border-2 border-blue-300"
+                  />
+                  <div>{PREMIERE}</div>
                 </div>
+              )}
+              <div className="flex flex-col gap-10">
+                <div>
+                  {TITLE}: {movie.title}
+                </div>
+                <div>
+                  {DIRECTION}: {movie.direction}
+                </div>
+                <div>
+                  {ACTORS}: {movie.actors}
+                </div>
+                <div>
+                  {GENRE}: {movie.genre}
+                </div>
+                <div>
+                  {FORMAT}: {movie.is3D ? "3D" : "Normal"}
+                </div>
+                <div>
+                  {PRODUCTION_YEAR}: {movie.productionYear}
+                </div>
+              </div>
+              <Button
+                onClick={onClickReserve}
+                text={RESERVE}
+                className={`w-36 h-8 mt-8 bg-primary text-black rounded hover:shadow-lg hover:shadow-cyan-300/50`}
+              />
+            </div>
+          </div>
+          <div className="flex items-center mt-6">
+            <Icon
+              src={"/clock-solid.svg"}
+              alt="clock-icon"
+              className="w-4 h-4 mr-2 items-center"
+            />
+            <div>{formatMinutes(movie.length)}</div>
+            {movie.trailerUrl && (
+              <Button
+                text={TRAILER}
+                onClick={toggleTrailerModal}
+                className={`w-20 h-8 bg-red-300 rounded-md ml-6 text-black`}
+                leftIconSrc="/youtube-brands.svg"
+                leftIconAlt="trailer-icon"
+              />
             )}
+          </div>
+          <div className="mt-10 border-b-2" />
+          <div className="mt-6 text-xl">{movie.description}</div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Movie;

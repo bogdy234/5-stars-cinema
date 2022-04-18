@@ -8,83 +8,81 @@ import useMediaQuery from "../../utils/hooks/useMediaQuery";
 import BurgerMenu from "../BurgerMenu";
 
 interface NavbarProps {
-    userData?: UserState;
+  userData?: UserState;
 }
 
 const { HOME, LOGIN } = CONSTANTS.TEXT.NAVBAR;
 const { SM } = CONSTANTS.SCREENS;
+const { MY_ACCOUNT } = CONSTANTS.ROUTES;
 
 const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
-    const matches = useMediaQuery(`(min-width:${SM})`);
-    const navigate = useNavigate();
-    const [showLogin, setShowLogin] = useState<boolean>(false);
+  const matches = useMediaQuery(`(min-width:${SM})`);
+  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState<boolean>(false);
 
-    const toggle = () => {
-        if (userData?.isLoggedIn) {
-            return;
-        }
-        setShowLogin((a) => !a);
-    };
+  const toggle = () => {
+    if (userData?.isLoggedIn) {
+      navigate(MY_ACCOUNT);
+      return;
+    }
+    setShowLogin((a) => !a);
+  };
 
-    const conditionalLogin = () => {
-        if (!userData) return;
-        const { isLoggedIn, data } = userData;
-        if (isLoggedIn) {
-            return (
-                <>
-                    <Button
-                        leftIconSrc="/user-solid.svg"
-                        leftIconAlt="user-icon"
-                        onClick={toggle}
-                        text={`${data?.firstName} ${data?.lastName}`}
-                        className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-100 h-16 pl-4 pr-4"
-                    />
-                </>
-            );
-        } else {
-            return (
-                <Button
-                    onClick={toggle}
-                    text={LOGIN}
-                    className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
-                />
-            );
-        }
-    };
+  const conditionalLogin = () => {
+    if (!userData) return;
+    const { isLoggedIn, data } = userData;
+    if (isLoggedIn) {
+      return (
+        <>
+          <Button
+            leftIconSrc="/user-solid.svg"
+            leftIconAlt="user-icon"
+            onClick={toggle}
+            text={`${data?.firstName} ${data?.lastName}`}
+            className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-100 h-16 pl-4 pr-4"
+          />
+        </>
+      );
+    } else {
+      return (
+        <Button
+          onClick={toggle}
+          text={LOGIN}
+          className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+        />
+      );
+    }
+  };
 
-    const onClickHome = () => {
-        navigate("/");
-    };
+  const onClickHome = () => {
+    navigate("/");
+  };
 
-    const renderLogin = () => {
-        if (showLogin) {
-            return (
-                <LoginModalContainer
-                    showModal={showLogin}
-                    closeModal={toggle}
-                />
-            );
-        }
-        return null;
-    };
+  const renderLogin = () => {
+    if (showLogin) {
+      return <LoginModalContainer showModal={showLogin} closeModal={toggle} />;
+    }
 
-    return (
-        <div className="w-full h-24 bg-gray-800 flex justify-between items-center">
-            {matches ? (
-                <>
-                    <Button
-                        onClick={onClickHome}
-                        text={HOME}
-                        className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
-                    />
-                    {renderLogin()}
-                    {conditionalLogin()}
-                </>
-            ) : (
-                <BurgerMenu />
-            )}
-        </div>
-    );
+    return null;
+  };
+
+  return (
+    <div className="w-full h-24 bg-gray-800 flex justify-between items-center">
+      {matches ? (
+        <>
+          <Button
+            onClick={onClickHome}
+            text={HOME}
+            className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+          />
+          {renderLogin()}
+          {conditionalLogin()}
+        </>
+      ) : (
+        <BurgerMenu />
+      )}
+    </div>
+  );
 };
 
 export default Navbar;

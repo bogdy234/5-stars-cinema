@@ -27,6 +27,20 @@ const post = async (data: any, path: string) => {
   });
 };
 
-const api = { get, post };
+const put = async (data: any, path: string) => {
+  return await fetch(`${CONSTANTS.SERVER}${path}`, {
+    method: "PUT",
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+const api = { get, post, put };
 
 export default api;
