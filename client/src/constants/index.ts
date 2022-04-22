@@ -1,5 +1,8 @@
 const CONSTANTS = {
   TEXT: {
+    BURGER_MENU: {
+      OPTIONS: ["Acasa", "Contul meu"],
+    },
     CHANGE_PASS: {
       CURRENT_PASSWORD: "Parola curenta",
       NEW_PASSWORD: "Parola noua",
