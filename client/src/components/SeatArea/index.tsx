@@ -24,7 +24,6 @@ const SeatArea: FC<SeatAreaProps> = ({
   const legendItems = [UNAVAILABLE, AVAILABLE, SELECTED];
   const [seats, setSeats] = useState<Seat[]>([]);
 
-  console.log(columns);
   const getColor = (item: string) => {
     if (item === UNAVAILABLE) {
       return "bg-gray-500";

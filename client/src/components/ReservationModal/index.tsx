@@ -1,19 +1,20 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useRef } from "react";
 import Modal from "../Modal";
 import CONSTANTS from "../../constants";
 import Button from "../Button";
-import theme from "../../theme";
+import useClickOutside from "../../utils/hooks/useClickOutside";
 
 interface ReservationModalProps {
   showModal: boolean;
   onClickConfirm: () => void;
-  message: string;
+  message?: string;
   dateOptions: string[];
   timeOptions: string[];
   selectedDateOption: string;
   selectedTimeOption: string;
   onChangeDate: (date: string) => void;
   onChangeTime: (time: string) => void;
+  hideModal: () => void;
 }
 
 const { CONFIRM, PLEASE_SELECT } = CONSTANTS.TEXT.RESERVATION_MODAL;
@@ -27,12 +28,17 @@ const ReservationModal: FC<ReservationModalProps> = ({
   selectedTimeOption,
   onChangeDate,
   onChangeTime,
+  hideModal,
 }: ReservationModalProps): ReactElement => {
+  const ref = useRef(null);
+
+  useClickOutside(ref, hideModal);
   return (
     <Modal showModal={showModal}>
       <div className={`flex justify-center items-center h-full`}>
         <div
           className={`w-5/6 md:w-1/2 lg:w-1/3 min-h-1/2 pb-10 rounded-3xl bg-gray-700`}
+          ref={ref}
         >
           <div
             className={"flex justify-center flex-col items-center gap-4 mt-16"}

@@ -23,9 +23,7 @@ const MyReservations: FC<MyReservationsProps> = ({
         `/reservation/getUserReservations?userId=${userData?.data._id}`
       );
       if (response.ok) {
-        console.log(response);
         const jsonResponse = await response.json();
-        console.log(jsonResponse);
         setUserReservations(jsonResponse);
       }
     };

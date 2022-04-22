@@ -50,8 +50,6 @@ const ChangePass: FC<ChangePassProps> = ({ userData, login }): ReactElement => {
     setErrorConfirm("");
   };
 
-  console.log(userData.data);
-
   const onClickSave = async () => {
     if (!currentPassword.length) {
       setErrorCurrent(FILL_FIELD);

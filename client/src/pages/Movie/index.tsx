@@ -10,7 +10,6 @@ import NavbarContainer from "../../containers/Navbar/container";
 import { MovieInterface } from "../../interfaces/user";
 import { checkDays, formatMinutes } from "../../utils";
 import ReservationModal from "../../components/ReservationModal";
-import theme from "../../theme";
 
 interface MovieProps {}
 
@@ -115,8 +114,16 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
       `/seats/${id}/${selectedDateOption.date.substring(
         selectedDateOption.date.indexOf(": ") + 2,
         selectedDateOption.date.length
-      )}/${selectedDateOption.time}/${selectedDateOption.hallId}`
+      )}/${selectedDateOption.time}/${selectedDateOption.hallId}/${
+        movie?.is3D ? "3D" : "normal"
+      }`
     );
+  };
+
+  const hideReservationModal = () => {
+    if (showReservationModal) {
+      setShowReservationModal(false);
+    }
   };
 
   return (
@@ -132,18 +139,18 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
       <ReservationModal
         showModal={showReservationModal}
         onClickConfirm={onClickConfirm}
-        message={"test"}
         dateOptions={getDateOptions()}
         timeOptions={getTimeOptionsForSelectedDate()}
         selectedDateOption={selectedDateOption.date}
         selectedTimeOption={selectedDateOption.time}
         onChangeDate={onChangeDate}
         onChangeTime={onChangeTime}
+        hideModal={hideReservationModal}
       />
       {movie && (
         <div className="md:px-20 lg:px-60 py-10">
-          <div className="mb-10 text-3xl">{movie.title}</div>
-          <div className={`flex gap-10`}>
+          <div className="mb-10 text-3xl text-center">{movie.title}</div>
+          <div className={`flex gap-10 flex-col items-center sm:flex-row`}>
             <Icon
               src={movie.coverImageUrl}
               alt="cover-image-url"
@@ -187,7 +194,7 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
               />
             </div>
           </div>
-          <div className="flex items-center mt-6">
+          <div className="flex items-center mt-6 mx-10 sm:mx-0">
             <Icon
               src={"/clock-solid.svg"}
               alt="clock-icon"
@@ -204,8 +211,8 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
               />
             )}
           </div>
-          <div className="mt-10 border-b-2" />
-          <div className="mt-6 text-xl">{movie.description}</div>
+          <div className="mt-10 border-b-2 mx-10 sm:mx-0" />
+          <div className="mt-6 text-xl mx-10 sm:mx-0">{movie.description}</div>
         </div>
       )}
     </div>

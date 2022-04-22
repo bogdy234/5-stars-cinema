@@ -15,14 +15,18 @@ const BurgerMenu: FC<BurgerMenuProps> = (): ReactElement => {
     setShowList((a) => !a);
   };
 
-  const toggle = () => {
-    setShowList(!showList);
+  const hide = () => {
+    if (showList) {
+      setShowList(false);
+    }
   };
 
   const onClickOption = (option: string) => {
     if (option === OPTIONS[0]) {
       navigate("/");
     } else if (option === OPTIONS[1]) {
+      navigate("/prices");
+    } else if (option === OPTIONS[2]) {
       navigate("/my-account");
     }
   };
@@ -37,7 +41,7 @@ const BurgerMenu: FC<BurgerMenuProps> = (): ReactElement => {
           show={showList}
           options={OPTIONS}
           onClickOption={onClickOption}
-          hide={toggle}
+          hide={hide}
         />
       </div>
     </div>

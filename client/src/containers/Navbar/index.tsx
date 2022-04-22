@@ -11,7 +11,7 @@ interface NavbarProps {
   userData?: UserState;
 }
 
-const { HOME, LOGIN } = CONSTANTS.TEXT.NAVBAR;
+const { HOME, LOGIN, PRICES } = CONSTANTS.TEXT.NAVBAR;
 const { SM } = CONSTANTS.SCREENS;
 const { MY_ACCOUNT } = CONSTANTS.ROUTES;
 
@@ -66,15 +66,26 @@ const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
     return null;
   };
 
+  const onClickPrices = () => {
+    navigate("/prices");
+  };
+
   return (
     <div className="w-full h-24 bg-gray-800 flex justify-between items-center">
       {matches ? (
         <>
-          <Button
-            onClick={onClickHome}
-            text={HOME}
-            className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
-          />
+          <div>
+            <Button
+              onClick={onClickHome}
+              text={HOME}
+              className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+            />
+            <Button
+              onClick={onClickPrices}
+              text={PRICES}
+              className="rounded-lg ml-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+            />
+          </div>
           {renderLogin()}
           {conditionalLogin()}
         </>

@@ -1,7 +1,35 @@
 const CONSTANTS = {
   TEXT: {
+    SEATS_PAGE: {
+      NORMAL_TICKETS: "Bilet intreg",
+      REDUCED_TICKETS: "Bilet Copii/Elevi/Studenti",
+      ERROR_NO_SEATS: "Trebuie sa selectezi un numar de locuri mai mare de 0.",
+      ERROR_TYPES:
+        "Trebuie sa selectezi ce tipuri de bilete doresti pentru toate locurile.",
+      ERROR_NOT_ENOUGH:
+        "Numarul de locuri selectate este mai mic decat cel de tipuri de bilete.",
+      TOTAL: "Total",
+    },
+    PRICES_PAGE: {
+      TITLE: "Tarife",
+      FIRST_PARAGRAPH:
+        "Pretul unui bilet la film difera in functie de zi, ora de rulare, formatul acestuia si categoria biletului achizitionat. Pentru proiectiile 3D sunt necesari ochelarii 3D. In cazul in care nu aveti, acestia se pot achizitiona de la casele de bilete, costa 5 lei/perechea si sunt disponibili in 2 dimensiuni, pentru copii si adulti. Ochelarii pot fi refolositi la urmatoarele filme 3D vizionate.",
+      PROJECTION: "Proiectie",
+      MOVIE_2D: "Film 2D",
+      MOVIE_3D: "Film 3D",
+      TABLE_PROJECTION: [
+        "Luni - Joi pana la ora 17:00",
+        "Luni - Joi dupa 17:00",
+        "Vineri - Duminica pana la ora 17:00",
+        "Vineri - Duminica dupa 17:00",
+      ],
+      PRICES_2D: ["20 lei", "25 lei", "28 lei", "30 lei"],
+      PRICES_3D: ["22 lei", "27 lei", "30 lei", "32 lei"],
+      SECOND_PARAGRAPH:
+        "Copiii, elevii si studentii beneficiaza de 20% reducere.",
+    },
     BURGER_MENU: {
-      OPTIONS: ["Acasa", "Contul meu"],
+      OPTIONS: ["Acasa", "Tarife", "Contul meu"],
     },
     CHANGE_PASS: {
       CURRENT_PASSWORD: "Parola curenta",
@@ -86,6 +114,7 @@ const CONSTANTS = {
       LOGIN: "Login",
       MY_ACCOUNT: "Contul meu",
       HOME: "Acasa",
+      PRICES: "Tarife",
     },
     REGISTER: {
       EMAIL: "Email",
