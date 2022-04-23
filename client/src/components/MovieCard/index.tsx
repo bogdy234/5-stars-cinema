@@ -47,7 +47,9 @@ const MovieCard: FC<MovieCardProps> = ({
 
   return (
     <div
-      className={`w-[340px] h-[230px] flex justify-self-center md:hover:scale-105 transition-all`}
+      className={`w-[340px] h-[230px] flex justify-self-center ${
+        !showTrailer ? "md:hover:scale-105 transition-hover" : ""
+      }`}
     >
       {showTrailer && trailerUrl && (
         <TrailerModal
