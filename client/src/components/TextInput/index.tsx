@@ -53,7 +53,7 @@ const TextInput: FC<TextInputProps> = ({
           {password && (
             <div className="w-4 h-4 absolute right-2">
               <Icon
-                src="eye-solid.svg"
+                src="/eye-solid.svg"
                 alt="eye"
                 onClick={onChangeInputType}
                 invert={invertEyeColor}

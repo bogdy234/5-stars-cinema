@@ -10,8 +10,14 @@ import NavbarContainer from "../../containers/Navbar/container";
 import { MovieInterface } from "../../interfaces/user";
 import { checkDays, formatMinutes } from "../../utils";
 import ReservationModal from "../../components/ReservationModal";
+import { UserData } from "../../actions/user";
 
-interface MovieProps {}
+interface MovieProps {
+  userData: {
+    isLoggedIn: boolean;
+    data: UserData;
+  };
+}
 
 interface DateOption {
   date: string;
@@ -31,7 +37,7 @@ const {
   RESERVE,
 } = CONSTANTS.TEXT.MOVIE_PAGE;
 
-const Movie: FC<MovieProps> = ({}): ReactElement => {
+const Movie: FC<MovieProps> = ({ userData }): ReactElement => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showReservationModal, setShowReservationModal] =
@@ -42,6 +48,7 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
   const [selectedDateOption, setSelectedDateOption] = useState<DateOption>(
     {} as DateOption
   );
+  const [triggerLogin, setTriggerLogin] = useState<boolean>(false);
 
   const getMovieDateTimeOptions = useCallback(() => {
     if (!movie) {
@@ -92,6 +99,10 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
   };
 
   const onClickReserve = () => {
+    if (!userData.isLoggedIn) {
+      setTriggerLogin(true);
+      return;
+    }
     setShowReservationModal((a) => !a);
   };
 
@@ -128,7 +139,10 @@ const Movie: FC<MovieProps> = ({}): ReactElement => {
 
   return (
     <div className="text-white">
-      <NavbarContainer />
+      <NavbarContainer
+        triggerLogin={triggerLogin}
+        setTriggerLoginFalse={() => setTriggerLogin(false)}
+      />
       {showTrailer && movie && movie?.trailerUrl && (
         <TrailerModal
           showModal={showTrailer}

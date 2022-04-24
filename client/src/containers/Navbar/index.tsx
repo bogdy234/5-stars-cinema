@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import CONSTANTS from "../../constants";
 import { UserState } from "../../reducers/user";
@@ -9,16 +9,29 @@ import BurgerMenu from "../BurgerMenu";
 
 interface NavbarProps {
   userData?: UserState;
+  triggerLogin?: boolean;
+  setTriggerLoginFalse?: () => void;
 }
 
 const { HOME, LOGIN, PRICES } = CONSTANTS.TEXT.NAVBAR;
 const { SM } = CONSTANTS.SCREENS;
 const { MY_ACCOUNT } = CONSTANTS.ROUTES;
 
-const Navbar: FC<NavbarProps> = ({ userData }: NavbarProps): ReactElement => {
+const Navbar: FC<NavbarProps> = ({
+  userData,
+  triggerLogin,
+  setTriggerLoginFalse,
+}: NavbarProps): ReactElement => {
   const matches = useMediaQuery(`(min-width:${SM})`);
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (triggerLogin && setTriggerLoginFalse) {
+      setShowLogin(true);
+      setTriggerLoginFalse();
+    }
+  }, [setTriggerLoginFalse, triggerLogin]);
 
   const toggle = () => {
     if (userData?.isLoggedIn) {
