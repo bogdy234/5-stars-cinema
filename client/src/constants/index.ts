@@ -144,7 +144,8 @@ const CONSTANTS = {
     SM: "768px",
   },
   // SERVER: "http://192.168.0.248:4000",
-  SERVER: "http://localhost:4000",
+  // SERVER: "http://localhost:4000",
+  SERVER: "https://five-stars-cinema.herokuapp.com/",
   SERVER_PATHS: {
     LOGIN: "/user/login",
     USER: "/user",
