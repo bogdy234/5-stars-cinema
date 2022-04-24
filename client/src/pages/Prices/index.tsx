@@ -18,7 +18,7 @@ const {
 
 const Prices: FC<PricesProps> = (): ReactElement => {
   return (
-    <div>
+    <div className="pb-14">
       <NavbarContainer />
       <div className="text-gray-100 mx-10">
         <div className="text-3xl mt-10 flex justify-center">{TITLE}</div>

@@ -1,13 +1,19 @@
 import { FC, ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserData } from "../../actions/user";
 import Dropdown from "../../components/Dropdown";
 import CONSTANTS from "../../constants";
 
-interface BurgerMenuProps {}
+interface BurgerMenuProps {
+  userData: {
+    isLoggedIn: boolean;
+    data: UserData;
+  };
+}
 
 const { OPTIONS } = CONSTANTS.TEXT.BURGER_MENU;
 
-const BurgerMenu: FC<BurgerMenuProps> = (): ReactElement => {
+const BurgerMenu: FC<BurgerMenuProps> = ({ userData }): ReactElement => {
   const navigate = useNavigate();
   const [showList, setShowList] = useState<boolean>(false);
 
@@ -27,6 +33,10 @@ const BurgerMenu: FC<BurgerMenuProps> = (): ReactElement => {
     } else if (option === OPTIONS[1]) {
       navigate("/prices");
     } else if (option === OPTIONS[2]) {
+      if (!userData.isLoggedIn) {
+        console.log("todo here");
+        return;
+      }
       navigate("/my-account");
     }
   };

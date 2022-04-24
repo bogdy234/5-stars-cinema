@@ -138,7 +138,7 @@ const Movie: FC<MovieProps> = ({ userData }): ReactElement => {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white pb-14">
       <NavbarContainer
         triggerLogin={triggerLogin}
         setTriggerLoginFalse={() => setTriggerLogin(false)}

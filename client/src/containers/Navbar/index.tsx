@@ -5,7 +5,7 @@ import { UserState } from "../../reducers/user";
 import LoginModalContainer from "../LoginModal/container";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/hooks/useMediaQuery";
-import BurgerMenu from "../BurgerMenu";
+import BurgerMenuContainer from "../BurgerMenu/container";
 
 interface NavbarProps {
   userData?: UserState;
@@ -103,7 +103,7 @@ const Navbar: FC<NavbarProps> = ({
           {conditionalLogin()}
         </>
       ) : (
-        <BurgerMenu />
+        <BurgerMenuContainer />
       )}
     </div>
   );

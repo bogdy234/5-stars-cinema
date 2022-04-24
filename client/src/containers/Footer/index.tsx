@@ -133,7 +133,7 @@ const Footer: FC<FooterProps> = (): ReactElement => {
         message={CONSTANTS.TEXT.SUCCESS_MODAL.CONTACT_MESSAGE}
       />
       <ErrorModal showModal={showError} onClose={toggleError} />
-      <h1 className="text-gray-200  pt-12 pb-20 text-6xl">
+      <h1 className="text-gray-200  pt-12 pb-20 text-6xl text-center md:text-left">
         {FOOTER.CONTACT_US}
       </h1>
       <InputError
@@ -141,24 +141,28 @@ const Footer: FC<FooterProps> = (): ReactElement => {
         value={name}
         onChange={onChangeName}
         errorText={nameError}
+        errorInputContainerClassName={"w-1/2 max-w-[500px]"}
       />
       <InputError
         placeholder={FOOTER.YOUR_EMAIL}
         value={email}
         onChange={onChangeEmail}
         errorText={emailError}
+        errorInputContainerClassName={"w-1/2 max-w-[500px]"}
       />
       <InputError
         placeholder={FOOTER.SUBJECT}
         value={subject}
         onChange={onChangeSubject}
         errorText={subjectError}
+        errorInputContainerClassName={"w-1/2 max-w-[500px]"}
       />
       <InputError
         placeholder={FOOTER.MESSAGE}
         value={message}
         onChange={onChangeMessage}
         errorText={messageError}
+        errorInputContainerClassName={"w-1/2 max-w-[500px]"}
       />
       <Button
         onClick={onSend}
