@@ -37,9 +37,9 @@ export const formatMinutes = (minutes: number) => {
 export const formatDate = (date: Date) => {
   const showZeroDay = date.getDate() < 10;
   const showZeroMonth = date.getMonth() + 1 < 10;
-  const newDate = `${showZeroDay ? "0" : ""}${date.getDate()}-${
-    showZeroMonth ? "0" : ""
-  }${date.getMonth() + 1}-${date.getFullYear()}`;
+  const newDate = `${date.getFullYear()}-${showZeroMonth ? "0" : ""}${
+    date.getMonth() + 1
+  }-${showZeroDay ? "0" : ""}${date.getDate()}`;
   return newDate;
 };
 

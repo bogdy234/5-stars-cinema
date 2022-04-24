@@ -57,6 +57,7 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     const reservedSeats = await api.get(
       `/reservation/getReservedSeats?movieId=${movieId}&hallId=${hallId}&movieTiming=${date} ${time}`
     );
+
     const jsonReservedSeats = await reservedSeats.json();
     setReservedSeats([...jsonReservedSeats]);
   }, [date, hallId, movieId, time]);
