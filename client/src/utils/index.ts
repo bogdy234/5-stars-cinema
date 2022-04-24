@@ -36,9 +36,9 @@ export const formatMinutes = (minutes: number) => {
 
 export const formatDate = (date: Date) => {
   const showZeroDay = date.getDate() < 10;
-  const showZeroMonth = date.getMonth() < 10;
+  const showZeroMonth = date.getMonth() + 1 < 10;
   const newDate = `${showZeroDay ? "0" : ""}${date.getDate()}-${
-    showZeroMonth && "0"
+    showZeroMonth ? "0" : ""
   }${date.getMonth() + 1}-${date.getFullYear()}`;
   return newDate;
 };
@@ -48,22 +48,27 @@ export const checkDays = (date: Date) => {
   if (date.getFullYear() !== today.getFullYear()) {
     return `${formatDate(date)}`;
   }
-  if (date.getMonth() !== today.getMonth()) {
+  if (date.getMonth() + 1 !== today.getMonth() + 1) {
     return `${formatDate(date)}`;
   }
+
   const days = [
+    "Duminica",
     "Luni",
     "Marti",
     "Miercuri",
     "Joi",
     "Vineri",
     "Sambata",
-    "Duminica",
   ];
   let weekDay = "";
-  if (date.getDay() === today.getDay()) {
+
+  if (date.getDay() === today.getDay() && date.getDate() === today.getDate()) {
     weekDay = "Astazi";
-  } else if (date.getDay() === today.getDay() + 1) {
+  } else if (
+    date.getDay() === today.getDay() + 1 &&
+    date.getDate() === today.getDate()
+  ) {
     weekDay = "Maine";
   } else {
     for (let i = 0; i < days.length; i++) {
