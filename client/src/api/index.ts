@@ -21,7 +21,6 @@ const post = async (data: any, path: string) => {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: JSON.stringify(data),
