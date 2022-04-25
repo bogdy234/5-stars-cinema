@@ -67,7 +67,9 @@ const Movie: FC<MovieProps> = ({ userData }): ReactElement => {
       });
     });
     setDateOptions(newDateOptions);
-    setSelectedDateOption(newDateOptions[0]);
+    if (newDateOptions[0]) {
+      setSelectedDateOption(newDateOptions[0]);
+    }
   }, [movie]);
 
   const getTimeOptionsForSelectedDate = () => {
@@ -108,9 +110,11 @@ const Movie: FC<MovieProps> = ({ userData }): ReactElement => {
 
   const onChangeDate = (newDate: string) => {
     const newDateOption = dateOptions.filter(
-      (option) => option.date === newDate
+      (option) => option.date.trim() === newDate.trim()
     )[0];
-    setSelectedDateOption(newDateOption);
+    if (newDateOption) {
+      setSelectedDateOption(newDateOption);
+    }
   };
 
   const onChangeTime = (newTime: string) => {

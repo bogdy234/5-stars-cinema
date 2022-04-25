@@ -33,6 +33,9 @@ const ReservationModal: FC<ReservationModalProps> = ({
   const ref = useRef(null);
 
   useClickOutside(ref, hideModal);
+  console.log(selectedDateOption);
+  console.log(selectedTimeOption);
+
   return (
     <Modal showModal={showModal}>
       <div className={`flex justify-center items-center h-full`}>
@@ -50,7 +53,9 @@ const ReservationModal: FC<ReservationModalProps> = ({
               onChange={(e) => onChangeDate(e.target.value)}
             >
               {dateOptions.map((option) => (
-                <option key={`option-${Math.random() * 1000}`}>{option}</option>
+                <option key={`option-${Math.random() * 1000}`} value={option}>
+                  {option}
+                </option>
               ))}
             </select>
           </div>
@@ -61,7 +66,9 @@ const ReservationModal: FC<ReservationModalProps> = ({
               onChange={(e) => onChangeTime(e.target.value)}
             >
               {timeOptions.map((option) => (
-                <option key={`option-${Math.random() * 1000}`}>{option}</option>
+                <option key={`option-${Math.random() * 1000}`} value={option}>
+                  {option}
+                </option>
               ))}
             </select>
           </div>
