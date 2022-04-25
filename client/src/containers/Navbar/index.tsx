@@ -41,6 +41,9 @@ const Navbar: FC<NavbarProps> = ({
     setShowLogin((a) => !a);
   };
 
+  const displayLogin = () => {
+    setShowLogin(true);
+  };
   const conditionalLogin = () => {
     if (!userData) return;
     const { isLoggedIn, data } = userData;
@@ -75,7 +78,7 @@ const Navbar: FC<NavbarProps> = ({
     if (showLogin) {
       return <LoginModalContainer showModal={showLogin} closeModal={toggle} />;
     }
-
+    console.log("over hereee");
     return null;
   };
 
@@ -103,7 +106,11 @@ const Navbar: FC<NavbarProps> = ({
           {conditionalLogin()}
         </>
       ) : (
-        <BurgerMenuContainer />
+        <>
+          {" "}
+          <BurgerMenuContainer showLogin={displayLogin} />
+          {renderLogin()}
+        </>
       )}
     </div>
   );

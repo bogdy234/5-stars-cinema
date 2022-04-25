@@ -9,11 +9,15 @@ interface BurgerMenuProps {
     isLoggedIn: boolean;
     data: UserData;
   };
+  showLogin: () => void;
 }
 
 const { OPTIONS } = CONSTANTS.TEXT.BURGER_MENU;
 
-const BurgerMenu: FC<BurgerMenuProps> = ({ userData }): ReactElement => {
+const BurgerMenu: FC<BurgerMenuProps> = ({
+  userData,
+  showLogin,
+}): ReactElement => {
   const navigate = useNavigate();
   const [showList, setShowList] = useState<boolean>(false);
 
@@ -34,7 +38,7 @@ const BurgerMenu: FC<BurgerMenuProps> = ({ userData }): ReactElement => {
       navigate("/prices");
     } else if (option === OPTIONS[2]) {
       if (!userData.isLoggedIn) {
-        console.log("todo here");
+        showLogin();
         return;
       }
       navigate("/my-account");

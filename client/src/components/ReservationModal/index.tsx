@@ -33,8 +33,6 @@ const ReservationModal: FC<ReservationModalProps> = ({
   const ref = useRef(null);
 
   useClickOutside(ref, hideModal);
-  console.log(selectedDateOption);
-  console.log(selectedTimeOption);
 
   return (
     <Modal showModal={showModal}>
