@@ -1,4 +1,4 @@
-import { FC, ReactElement, useCallback, useEffect, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { UserData } from "../../actions/user";
 import api from "../../api";
 import ReservationCard from "../../components/ReservationCard";
@@ -37,7 +37,6 @@ const MyReservations: FC<MyReservationsProps> = ({
       return;
     }
     const getReservations = async () => {
-      console.log(userData?.data._id);
       const response = await api.get(
         `/reservation/getUserReservations?userId=${userData?.data._id}`
       );

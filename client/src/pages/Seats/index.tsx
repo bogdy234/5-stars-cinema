@@ -54,7 +54,6 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
   const getHallNumber = useCallback(async () => {
     const response = await api.get(`/hall?id=${hallId}`);
     const json = await response.json();
-    console.log(json);
     setHallNumber(json[0].number);
   }, [hallId]);
 
