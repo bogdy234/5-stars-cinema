@@ -34,12 +34,14 @@ export const formatMinutes = (minutes: number) => {
   return `${hours}h ${newMinutes}min`;
 };
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date, showTime: boolean = false) => {
   const showZeroDay = date.getDate() < 10;
   const showZeroMonth = date.getMonth() + 1 < 10;
   const newDate = `${date.getFullYear()}-${showZeroMonth ? "0" : ""}${
     date.getMonth() + 1
-  }-${showZeroDay ? "0" : ""}${date.getDate()}`;
+  }-${showZeroDay ? "0" : ""}${date.getDate()} ${
+    showTime ? `${date.getHours()}:${date.getMinutes()}` : ""
+  }`;
   return newDate;
 };
 

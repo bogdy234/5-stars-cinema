@@ -26,11 +26,12 @@ const {
   ERROR_NO_SEATS,
   ERROR_TYPES,
   TOTAL,
+  HALL,
 } = CONSTANTS.TEXT.SEATS_PAGE;
 
 const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
   const navigate = useNavigate();
-  const { movieId, hallId, date, time, is3D } = useParams();
+  const { movieId, hallId, date, time, is3D, movieTitle } = useParams();
   const [rows, setRows] = useState<number>(0);
   const [columns, setColumns] = useState<number>(0);
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
@@ -41,6 +42,7 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     reduced: 0,
   });
   const [confirmError, setConfirmError] = useState<string>("");
+  const [hallNumber, setHallNumber] = useState<number>(0);
 
   const getHallData = useCallback(async () => {
     const hallData = await api.get("/hall?id=62516463cef32ef16bea456f");
@@ -49,9 +51,17 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     setColumns(jsonHallData[0].columns);
   }, []);
 
+  const getHallNumber = useCallback(async () => {
+    const response = await api.get(`/hall?id=${hallId}`);
+    const json = await response.json();
+    console.log(json);
+    setHallNumber(json[0].number);
+  }, [hallId]);
+
   useLayoutEffect(() => {
     getHallData();
-  }, [getHallData]);
+    getHallNumber();
+  }, [getHallData, getHallNumber]);
 
   const getReservedSeats = useCallback(async () => {
     const reservedSeats = await api.get(
@@ -92,6 +102,12 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
       bookedSeats: selectedSeats,
       movieTiming: `${date} ${time}`,
       hallId,
+      movieName: movieTitle,
+      hallNumber,
+      totalPrice: (
+        getPrice() * ticketNumbers.normal +
+        ticketNumbers.reduced * getPrice() * 0.8
+      ).toFixed(2),
       ticketsType: {
         normal: ticketNumbers.normal,
         reduced: ticketNumbers.reduced,
@@ -155,6 +171,9 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
         onClose={onCloseModal}
         message={SUCCESS}
       />
+      <div className="text-white text-center text-2xl mt-6">
+        {HALL} {hallNumber}
+      </div>
       {rows > 0 && columns > 0 && (
         <SeatArea
           reservedSeats={reservedSeats}

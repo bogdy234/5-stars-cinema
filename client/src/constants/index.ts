@@ -1,6 +1,19 @@
 const CONSTANTS = {
   TEXT: {
+    MY_RESERVATIONS: {
+      NO_RESERVATIONS: "Nu aveti rezervari inregistrate.",
+    },
+    RESERVATION_CARD: {
+      RESERVATION: "Rezervare",
+      RESERVATION_ID: "Rezervare ",
+      HALL: "Sala",
+      SEATS: "Locuri: ",
+      NORMAL_TICKETS: "Bilet intreg:",
+      REDUCED_TICKETS: "Bilet Copii/Elevi/Studenti:",
+      TOTAL_PRICE: "Pret total:",
+    },
     SEATS_PAGE: {
+      HALL: "Sala",
       NORMAL_TICKETS: "Bilet intreg",
       REDUCED_TICKETS: "Bilet Copii/Elevi/Studenti",
       ERROR_NO_SEATS: "Trebuie sa selectezi un numar de locuri mai mare de 0.",

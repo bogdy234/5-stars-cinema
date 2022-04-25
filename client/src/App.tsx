@@ -19,7 +19,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/movie/:id" element={<MovieContainer />} />
             <Route
-              path="/seats/:movieId/:date/:time/:hallId/:is3D"
+              path="/seats/:movieId/:date/:time/:hallId/:is3D/:movieTitle"
               element={<SeatsContainer />}
             />
             <Route path="/my-account" element={<MyAccountContainer />} />

@@ -127,7 +127,7 @@ const Movie: FC<MovieProps> = ({ userData }): ReactElement => {
         selectedDateOption.date.length
       )}/${selectedDateOption.time}/${selectedDateOption.hallId}/${
         movie?.is3D ? "3D" : "normal"
-      }`
+      }/${movie?.title}`
     );
   };
 
