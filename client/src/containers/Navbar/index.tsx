@@ -78,7 +78,7 @@ const Navbar: FC<NavbarProps> = ({
     if (showLogin) {
       return <LoginModalContainer showModal={showLogin} closeModal={toggle} />;
     }
-    console.log("over hereee");
+    
     return null;
   };
 
