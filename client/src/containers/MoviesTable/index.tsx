@@ -1,56 +1,95 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import api from "../../api";
 import Button from "../../components/Button";
+import Icon from "../../components/Icon";
 import CONSTANTS from "../../constants";
 import { Movie } from "../../interfaces/movies";
 
-interface MoviesTableProps {}
+interface MoviesTableProps {
+  showAddMovieModal: () => void;
+}
 
 const { TITLE, DELETE, EDIT, POSTER, YEAR, ADD_MOVIE } =
-    CONSTANTS.TEXT.MOVIES_TABLE;
+  CONSTANTS.TEXT.MOVIES_TABLE;
 
 const tdStyle = "border-2 collapse w-40 text-center";
 
-const MoviesTable: FC<MoviesTableProps> = (): ReactElement => {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    useEffect(() => {
-        const getAllMovies = async () => {
-            const response = await api.get("/movie/getAllMovies");
-            const json = await response.json();
-            setMovies(json);
-        };
-        getAllMovies();
-    }, []);
+const MoviesTable: FC<MoviesTableProps> = ({
+  showAddMovieModal,
+}): ReactElement => {
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-    const onClickAddMovie = () => {};
+  const getAllMovies = async () => {
+    const response = await api.get("/movie/getAllMovies");
+    const json = await response.json();
+    setMovies(json);
+  };
 
-    return (
-        <div className="mt-20 text-white">
-            <div className="mb-20">
+  useEffect(() => {
+    getAllMovies();
+  }, []);
+
+  const onClickAddMovie = () => {
+    showAddMovieModal();
+  };
+
+  const onClickDeleteMovie = async (id: string) => {
+    const response = await api.deleteData(id, "/movie");
+    const json = await response.json();
+    getAllMovies();
+    console.log(json);
+  };
+  const onClickEditMovie = () => {};
+  return (
+    <div className="mt-20 text-white">
+      <div className="mb-20">
+        <Button
+          onClick={onClickAddMovie}
+          text={ADD_MOVIE}
+          className={`w-36 h-8 mt-8 bg-[#03e9f4] text-black rounded hover:shadow-lg hover:shadow-cyan-300/50`}
+        />
+      </div>
+      <table>
+        <thead>
+          <tr className="border-2 collapse text-3xl">
+            <td className={tdStyle}>{TITLE}</td>
+            <td className={tdStyle}>{POSTER}</td>
+            <td className={tdStyle}>{YEAR}</td>
+            <td className={tdStyle}>{DELETE}</td>
+            <td className={tdStyle}>{EDIT}</td>
+          </tr>
+        </thead>
+        <tbody className="text-center text-xl border-2 collapse">
+          {movies.map((movie) => (
+            <tr
+              key={`${movie.title}-${movie.productionYear}-${movie.length}`}
+              className="border-2 collapse"
+            >
+              <td className="border-2 collapse">{movie.title}</td>
+              <td className="border-2 collapse">
+                <Icon src={movie.coverImageUrl} alt="cover" />
+              </td>
+              <td className="border-2 collapse">{movie.productionYear}</td>
+              <td className="border-2 collapse">
                 <Button
-                    onClick={onClickAddMovie}
-                    text={ADD_MOVIE}
-                    className={`w-36 h-8 mt-8 bg-[#03e9f4] text-black rounded hover:shadow-lg hover:shadow-cyan-300/50`}
+                  onClick={() => onClickDeleteMovie(movie._id)}
+                  text={DELETE}
+                  className="bg-red-300 w-24 h-10 rounded text-black"
                 />
-            </div>
-            <table>
-                <thead>
-                    <tr className="border-2 collapse text-3xl">
-                        <td className={tdStyle}>{TITLE}</td>
-                        <td className={tdStyle}>{POSTER}</td>
-                        <td className={tdStyle}>{YEAR}</td>
-                        <td className={tdStyle}>{DELETE}</td>
-                        <td className={tdStyle}>{EDIT}</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>s</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    );
+              </td>
+              <td>
+                <Button
+                  onClick={onClickEditMovie}
+                  text={EDIT}
+                  className="bg-blue-300 w-24 h-10 rounded text-black"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default MoviesTable;

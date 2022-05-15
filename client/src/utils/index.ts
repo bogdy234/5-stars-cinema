@@ -17,6 +17,14 @@ export const isOnlyNumericInput = (phoneNumber: string) => {
   return true;
 };
 
+export const isNumeric = (a: string) => {
+  const re = /^[0-9\b]+$/;
+  if (a.match(re)) {
+    return true;
+  }
+  return false;
+};
+
 export const isValidPassword = (password: string) => {};
 
 export const isValidPhoneNumber = (phoneNumber: string) => {

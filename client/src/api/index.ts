@@ -41,6 +41,19 @@ const put = async (data: any, path: string) => {
   });
 };
 
-const api = { get, post, put };
+const deleteData = async (id: string, path: string) => {
+  return await fetch(`${CONSTANTS.SERVER}${path}?id=${id}`, {
+    method: "DELETE",
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+};
+
+const api = { get, post, put, deleteData };
 
 export default api;
