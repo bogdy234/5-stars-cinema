@@ -3,7 +3,6 @@ import Modal from "../../components/Modal";
 import useClickOutside from "../../utils/hooks/useClickOutside";
 
 import Timekeeper from "react-timekeeper";
-import "react-clock/dist/Clock.css";
 import CONSTANTS from "../../constants";
 import Button from "../../components/Button";
 import api from "../../api";
