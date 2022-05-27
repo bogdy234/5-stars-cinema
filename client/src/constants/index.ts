@@ -1,5 +1,21 @@
 const CONSTANTS = {
   TEXT: {
+    EDIT_MOVIE_MODAL: {
+      TITLE: "Titlu:",
+      DESCRIPTION: "Descriere:",
+      LENGTH: "Durata (minute):",
+      COVER_IMAGE: "Imagine (url):",
+      TRAILER_URL: "Trailer (url):",
+      RATING: "Rating:",
+      GENRE: "Gen:",
+      PRODUCTION_YEAR: "Anul aparitiei:",
+      PRODUCER: "Producator:",
+      DIRECTION: "Regizor:",
+      ACTORS: "Actori:",
+      IS_3D: "3D:",
+      IS_PREMIERE: "Premiera:",
+      CONFIRM: "Confirma",
+    },
     ADD_TIME_MODAL: {
       CHOOSE_DATE: "Alege data:",
       CONFIRM: "Confirma",

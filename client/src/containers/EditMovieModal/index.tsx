@@ -8,10 +8,12 @@ import Checkbox from "../../components/Checkbox";
 import { isNumeric } from "../../utils";
 import Button from "../../components/Button";
 import api from "../../api";
+import { Movie } from "../../interfaces/movies";
 
-interface AddMovieModalProps {
+interface EditMovieModalProps {
   showModal: boolean;
   closeModal: () => void;
+  movie: Movie;
 }
 
 const {
@@ -29,28 +31,31 @@ const {
   IS_PREMIERE,
   CONFIRM,
   TRAILER_URL,
-} = CONSTANTS.TEXT.ADD_MOVIE_MODAL;
+} = CONSTANTS.TEXT.EDIT_MOVIE_MODAL;
 
-const AddMovieModal: FC<AddMovieModalProps> = ({
+const EditMovieModal: FC<EditMovieModalProps> = ({
   showModal,
   closeModal,
+  movie,
 }): ReactElement => {
   const ref = useRef(null);
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [length, setLength] = useState<string>("0");
-  const [actors, setActors] = useState<string>("");
-  const [coverImageUrl, setCoverImageUrl] = useState<string>("");
-  const [trailerUrl, setTrailerUrl] = useState<string>("");
-  const [direction, setDirection] = useState<string>("");
-  const [genre, setGenre] = useState<string>("");
-  const [producer, setProducer] = useState<string>("");
-  const [productionYear, setProductionYear] = useState<string>(
-    `${new Date().getFullYear()}`
+  const [title, setTitle] = useState<string>(movie.title);
+  const [description, setDescription] = useState<string>(movie.description);
+  const [length, setLength] = useState<string>(`${movie.length}`);
+  const [actors, setActors] = useState<string>(movie.actors);
+  const [coverImageUrl, setCoverImageUrl] = useState<string>(
+    movie.coverImageUrl
   );
-  const [rating, setRating] = useState<string>("");
-  const [is3D, setIs3D] = useState<boolean>(false);
-  const [isPremiere, setIsPremiere] = useState<boolean>(false);
+  const [trailerUrl, setTrailerUrl] = useState<string>(movie.trailerUrl);
+  const [direction, setDirection] = useState<string>(movie.direction);
+  const [genre, setGenre] = useState<string>(movie.genre);
+  const [producer, setProducer] = useState<string>(movie.producer);
+  const [productionYear, setProductionYear] = useState<string>(
+    `${movie.productionYear}`
+  );
+  const [rating, setRating] = useState<string>(`${movie.rating}`);
+  const [is3D, setIs3D] = useState<boolean>(movie.is3D);
+  const [isPremiere, setIsPremiere] = useState<boolean>(movie.isPremiere);
 
   useClickOutside(ref, closeModal);
 
@@ -106,26 +111,27 @@ const AddMovieModal: FC<AddMovieModalProps> = ({
 
   const onClickConfirm = async () => {
     const data = {
-      title,
-      description,
-      length,
-      coverImageUrl,
-      trailerUrl,
-      rating: parseInt(rating, 10),
-      genre,
-      productionYear: parseInt(productionYear, 10),
-      producer,
-      direction,
-      actors,
-      is3D,
-      isPremiere,
+      id: movie._id,
+      updatedValue: {
+        title,
+        description,
+        length,
+        coverImageUrl,
+        trailerUrl,
+        rating: parseInt(rating, 10),
+        genre,
+        productionYear: parseInt(productionYear, 10),
+        producer,
+        direction,
+        actors,
+        is3D,
+        isPremiere,
+      },
     };
-    const response = await api.post(data, "/movie");
-    const json = response.json();
+    const response = await api.put(data, "/movie");
+    const json = await response.json();
     console.log(json);
   };
-
-  console.log("render");
 
   return (
     <Modal showModal={showModal}>
@@ -230,4 +236,4 @@ const AddMovieModal: FC<AddMovieModalProps> = ({
   );
 };
 
-export default AddMovieModal;
+export default EditMovieModal;

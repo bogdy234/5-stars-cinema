@@ -6,6 +6,8 @@ import MoviesTable from "../../containers/MoviesTable";
 
 import NavbarContainer from "../../containers/Navbar/container";
 import AddTimeModal from "../../containers/AddTimeModal";
+import EditMovieModal from "../../containers/EditMovieModal";
+import { Movie } from "../../interfaces/movies";
 
 interface AdminProps {
   userData: { data: UserData };
@@ -14,7 +16,9 @@ interface AdminProps {
 const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
   const [showAddMovieModal, setShowAddMovieModal] = useState<boolean>(false);
   const [showAddTimeModal, setShowAddTimeModal] = useState<boolean>(false);
+  const [showEditMovieModal, setShowEditMovieModal] = useState<boolean>(false);
   const [movieId, setMovieId] = useState<string>("");
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   const closeAddMoveModal = () => {
     if (!showAddMovieModal) return;
@@ -38,6 +42,15 @@ const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
         closeModal={closeAddTimeModal}
         movieId={movieId}
       />
+      {movie && (
+        <EditMovieModal
+          showModal={showEditMovieModal}
+          closeModal={() =>
+            showEditMovieModal ? setShowEditMovieModal(false) : null
+          }
+          movie={movie}
+        />
+      )}
       <div className="flex gap-10">
         <AdminNav />
         <MoviesTable
@@ -45,6 +58,10 @@ const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
           showAddTimeModal={(movieId: string) => {
             setMovieId(movieId);
             setShowAddTimeModal(true);
+          }}
+          showEditMovieModal={(movie) => {
+            setShowEditMovieModal(true);
+            setMovie(movie);
           }}
         />
       </div>

@@ -8,6 +8,7 @@ import { Movie } from "../../interfaces/movies";
 interface MoviesTableProps {
   showAddMovieModal: () => void;
   showAddTimeModal: (movieId: string) => void;
+  showEditMovieModal: (movie: Movie) => void;
 }
 
 const { TITLE, DELETE, EDIT, POSTER, YEAR, ADD_MOVIE, RUNNING_TIME, ADD } =
@@ -18,6 +19,7 @@ const tdStyle = "border-2 collapse w-40 text-center";
 const MoviesTable: FC<MoviesTableProps> = ({
   showAddMovieModal,
   showAddTimeModal,
+  showEditMovieModal,
 }): ReactElement => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -42,7 +44,9 @@ const MoviesTable: FC<MoviesTableProps> = ({
     console.log(json);
   };
 
-  const onClickEditMovie = () => {};
+  const onClickEditMovie = (movie: Movie) => {
+    showEditMovieModal(movie);
+  };
 
   const onClickAddRunningTime = (movieId: string) => {
     showAddTimeModal(movieId);
@@ -88,7 +92,7 @@ const MoviesTable: FC<MoviesTableProps> = ({
               </td>
               <td className="border-2 collapse">
                 <Button
-                  onClick={onClickEditMovie}
+                  onClick={() => onClickEditMovie(movie)}
                   text={EDIT}
                   className="bg-blue-300 w-24 h-10 rounded text-black"
                 />
