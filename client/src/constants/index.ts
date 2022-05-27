@@ -49,6 +49,7 @@ const CONSTANTS = {
     },
     ADMIN_NAV: {
       MOVIES: "Filme",
+      RESERVATIONS: "Rezervari",
     },
     MY_RESERVATIONS: {
       NO_RESERVATIONS: "Nu aveti rezervari inregistrate.",

@@ -8,6 +8,7 @@ import NavbarContainer from "../../containers/Navbar/container";
 import AddTimeModal from "../../containers/AddTimeModal";
 import EditMovieModal from "../../containers/EditMovieModal";
 import { Movie } from "../../interfaces/movies";
+import { AdminNavOption } from "../../interfaces";
 
 interface AdminProps {
   userData: { data: UserData };
@@ -19,6 +20,9 @@ const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
   const [showEditMovieModal, setShowEditMovieModal] = useState<boolean>(false);
   const [movieId, setMovieId] = useState<string>("");
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [selectedOption, setSelectedOption] = useState<AdminNavOption>(
+    AdminNavOption.Movies
+  );
 
   const closeAddMoveModal = () => {
     if (!showAddMovieModal) return;
@@ -52,7 +56,10 @@ const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
         />
       )}
       <div className="flex gap-10">
-        <AdminNav />
+        <AdminNav
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
         <MoviesTable
           showAddMovieModal={() => setShowAddMovieModal(true)}
           showAddTimeModal={(movieId: string) => {

@@ -125,8 +125,6 @@ const AddMovieModal: FC<AddMovieModalProps> = ({
     console.log(json);
   };
 
-  console.log("render");
-
   return (
     <Modal showModal={showModal}>
       <div

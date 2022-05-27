@@ -8,6 +8,7 @@ interface ButtonProps {
   leftIconSrc?: string;
   leftIconAlt?: string;
   children?: ReactElement;
+  iconJustify?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ const Button: FC<ButtonProps> = ({
   text,
   leftIconSrc,
   leftIconAlt,
+  iconJustify,
   children,
 }: ButtonProps): ReactElement => {
   return (
@@ -23,7 +25,8 @@ const Button: FC<ButtonProps> = ({
       <button
         type="button"
         className={`relative ${className ? className : "w-40 h-16"} ${
-          leftIconSrc && `flex items-center justify-center gap-1`
+          leftIconSrc &&
+          `flex items-center ${iconJustify || "justify-center"} gap-1`
         }`}
         onClick={onClick}
       >
