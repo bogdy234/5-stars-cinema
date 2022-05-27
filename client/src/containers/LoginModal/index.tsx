@@ -143,7 +143,7 @@ const LoginModal: FC<LoginModalProps> = ({
             </div>
             <div className="pt-4 text-center">
               {NO_ACCOUNT_YET}{" "}
-              <a href="register" className="underline">
+              <a href="/register" className="underline">
                 aici
               </a>
               .

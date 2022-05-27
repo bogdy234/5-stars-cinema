@@ -11,29 +11,26 @@ import MovieContainer from "./pages/Movie/movieContainer";
 import AdminContainer from "./pages/Admin/container";
 
 function App() {
-    return (
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Home />}></Route>
-                        <Route path="/register" element={<Register />}></Route>
-                        <Route path="/movie/:id" element={<MovieContainer />} />
-                        <Route
-                            path="/seats/:movieId/:date/:time/:hallId/:is3D/:movieTitle"
-                            element={<SeatsContainer />}
-                        />
-                        <Route
-                            path="/my-account"
-                            element={<MyAccountContainer />}
-                        />
-                        <Route path="/prices" element={<Prices />} />
-                        <Route path="/admin" element={<AdminContainer />} />
-                    </Routes>
-                </BrowserRouter>
-            </PersistGate>
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/movie/:id" element={<MovieContainer />} />
+            <Route
+              path="/seats/:movieId/:date/:time/:hallId/:is3D/:movieTitle"
+              element={<SeatsContainer />}
+            />
+            <Route path="/my-account" element={<MyAccountContainer />} />
+            <Route path="/prices" element={<Prices />} />
+            <Route path="/admin" element={<AdminContainer />} />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;

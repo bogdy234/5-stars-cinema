@@ -7,15 +7,17 @@ import { Movie } from "../../interfaces/movies";
 
 interface MoviesTableProps {
   showAddMovieModal: () => void;
+  showAddTimeModal: (movieId: string) => void;
 }
 
-const { TITLE, DELETE, EDIT, POSTER, YEAR, ADD_MOVIE } =
+const { TITLE, DELETE, EDIT, POSTER, YEAR, ADD_MOVIE, RUNNING_TIME, ADD } =
   CONSTANTS.TEXT.MOVIES_TABLE;
 
 const tdStyle = "border-2 collapse w-40 text-center";
 
 const MoviesTable: FC<MoviesTableProps> = ({
   showAddMovieModal,
+  showAddTimeModal,
 }): ReactElement => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -39,7 +41,13 @@ const MoviesTable: FC<MoviesTableProps> = ({
     getAllMovies();
     console.log(json);
   };
+
   const onClickEditMovie = () => {};
+
+  const onClickAddRunningTime = (movieId: string) => {
+    showAddTimeModal(movieId);
+  };
+
   return (
     <div className="mt-20 text-white">
       <div className="mb-20">
@@ -57,6 +65,7 @@ const MoviesTable: FC<MoviesTableProps> = ({
             <td className={tdStyle}>{YEAR}</td>
             <td className={tdStyle}>{DELETE}</td>
             <td className={tdStyle}>{EDIT}</td>
+            <td className={tdStyle}>{RUNNING_TIME}</td>
           </tr>
         </thead>
         <tbody className="text-center text-xl border-2 collapse">
@@ -77,10 +86,17 @@ const MoviesTable: FC<MoviesTableProps> = ({
                   className="bg-red-300 w-24 h-10 rounded text-black"
                 />
               </td>
-              <td>
+              <td className="border-2 collapse">
                 <Button
                   onClick={onClickEditMovie}
                   text={EDIT}
+                  className="bg-blue-300 w-24 h-10 rounded text-black"
+                />
+              </td>
+              <td className="border-2 collapse">
+                <Button
+                  onClick={() => onClickAddRunningTime(movie._id)}
+                  text={ADD}
                   className="bg-blue-300 w-24 h-10 rounded text-black"
                 />
               </td>

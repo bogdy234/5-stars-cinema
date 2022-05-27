@@ -1,5 +1,10 @@
 const CONSTANTS = {
   TEXT: {
+    ADD_TIME_MODAL: {
+      CHOOSE_DATE: "Alege data:",
+      CONFIRM: "Confirma",
+      CHOOSE_HALL: "Alege sala:",
+    },
     ADD_MOVIE_MODAL: {
       TITLE: "Titlu:",
       DESCRIPTION: "Descriere:",
@@ -23,9 +28,11 @@ const CONSTANTS = {
       DELETE: "Sterge",
       EDIT: "Modifica",
       ADD_MOVIE: "Adauga film",
+      RUNNING_TIME: "Timp rulare",
+      ADD: "Adauga",
     },
     ADMIN_NAV: {
-      MOVIES: "Movies",
+      MOVIES: "Filme",
     },
     MY_RESERVATIONS: {
       NO_RESERVATIONS: "Nu aveti rezervari inregistrate.",
