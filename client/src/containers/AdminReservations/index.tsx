@@ -102,7 +102,7 @@ const AdminReservations: FC<AdminReservationsProps> = (): ReactElement => {
       <SuccessModal
         showModal={showSuccess}
         onClose={toggleSuccess}
-        message={CONSTANTS.TEXT.SUCCESS_MODAL.CONTACT_MESSAGE}
+        message={CONSTANTS.TEXT.SUCCESS_MODAL.DELETE_RESERVATION_SUCCESS}
       />
       <ErrorModal showModal={showError} onClose={toggleError} />
       <div className="mb-6">

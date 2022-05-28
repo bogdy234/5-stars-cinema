@@ -65,6 +65,7 @@ const CONSTANTS = {
     },
     MY_RESERVATIONS: {
       NO_RESERVATIONS: "Nu aveti rezervari inregistrate.",
+      DELETE: "Sterge rezervare",
     },
     RESERVATION_CARD: {
       RESERVATION: "Rezervare",
@@ -169,9 +170,10 @@ const CONSTANTS = {
       EMAIL_ERROR: "Acesta nu este un email valid.",
     },
     SUCCESS_MODAL: {
-      CONTACT_MESSAGE: "Your message was sent successfully!",
-      REGISTER: "Your account has been succesfully created!",
+      CONTACT_MESSAGE: "Mesajul tau a fost trimis cu succes!",
+      REGISTER: "Contul tau a fost creeat cu succes!",
       CLOSE: "Inchide",
+      DELETE_RESERVATION_SUCCESS: "Rezervarea a fost stearsa cu succes!",
     },
     ERROR_MODAL: {
       MESSAGE: "A aparut o eroare. Te rog incearca mai tarziu!",
