@@ -7,6 +7,10 @@ const CONSTANTS = {
       DELETE: "Sterge rezervarea",
       NOT_FOUND: "Nu a fost gasita nicio rezervare cu aceste date.",
       EDIT: "Modifica",
+      FIRST_NAME: "Prenume",
+      LAST_NAME: "Nume",
+
+      OPTIONS: ["Cauta dupa nume", "Cauta dupa id"],
     },
     EDIT_MOVIE_MODAL: {
       TITLE: "Titlu:",
