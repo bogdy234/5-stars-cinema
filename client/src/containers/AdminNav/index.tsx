@@ -1,24 +1,30 @@
 import { FC, ReactElement } from "react";
 import Button from "../../components/Button";
 import CONSTANTS from "../../constants";
-import { AdminNavOption } from "../../interfaces";
 
 interface AdminNavProps {
-  selectedOption: string;
-  setSelectedOption: (option: AdminNavOption) => void;
+  selectedOption?: string;
+  // setSelectedOption: (option: AdminNavOption) => void;
+  selectMoviesOption?: () => void;
+  selectReservationOption?: () => void;
 }
 
 const { MOVIES, RESERVATIONS } = CONSTANTS.TEXT.ADMIN_NAV;
 
 const AdminNav: FC<AdminNavProps> = ({
-  selectedOption,
-  setSelectedOption,
+  selectedOption = "",
+  // setSelectedOption,
+  selectMoviesOption = () => {},
+  selectReservationOption = () => {},
 }): ReactElement => {
   const onClickMovies = () => {
-    setSelectedOption(AdminNavOption.Movies);
+    selectMoviesOption();
+    // setSelectedOption(AdminNavOption.Movies);
   };
+
   const onClickReservations = () => {
-    setSelectedOption(AdminNavOption.Reservations);
+    selectReservationOption();
+    // setSelectedOption(AdminNavOption.Reservations);
   };
 
   const buttonsContent = [
