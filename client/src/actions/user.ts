@@ -1,9 +1,12 @@
+import { Options } from "../interfaces/user";
+
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGOUT = "LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
+export const SELECT_OPTION = "SELECT_OPTION";
 
 export interface UserLoginData {
   email: string;
@@ -88,5 +91,14 @@ export const logoutError = () => {
   return {
     type: LOGOUT_ERROR,
     payload,
+  };
+};
+
+export const selectOption = (option: Options) => {
+  return {
+    type: SELECT_OPTION,
+    payload: {
+      selectedOption: option,
+    },
   };
 };

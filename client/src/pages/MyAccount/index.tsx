@@ -6,15 +6,12 @@ import ChangePassContainer from "../../containers/ChangePass/container";
 import MyAccountDataContainer from "../../containers/MyAccountData/container";
 import MyReservationsContainer from "../../containers/MyReservations/container";
 import NavbarContainer from "../../containers/Navbar/container";
+import { Options } from "../../interfaces/user";
 
 interface MyAccountProps {
   logout?: () => void;
-}
-
-enum Options {
-  PersonalData,
-  MyReservations,
-  ChangePass,
+  selectedOption?: Options;
+  setSelectedOption?: (option: Options) => void;
 }
 
 const { MY_ACCOUNT, PERSONAL_DATA, MY_RESERVATIONS, CHANGE_PASS, LOGOUT } =
@@ -22,11 +19,15 @@ const { MY_ACCOUNT, PERSONAL_DATA, MY_RESERVATIONS, CHANGE_PASS, LOGOUT } =
 
 const buttonClass = `h-12 hover:text-primary`;
 
-const MyAccount: FC<MyAccountProps> = ({ logout }): ReactElement => {
+const MyAccount: FC<MyAccountProps> = ({
+  logout,
+  selectedOption = Options.PersonalData,
+  setSelectedOption = () => {},
+}): ReactElement => {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState<Options>(
-    Options.PersonalData
-  );
+  // const [selectedOption, setSelectedOption] = useState<Options>(
+  //   Options.PersonalData
+  // );
 
   const onClickPersonalData = () => {
     setSelectedOption(Options.PersonalData);

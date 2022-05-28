@@ -5,14 +5,17 @@ import {
   LOGOUT,
   LOGOUT_ERROR,
   LOGOUT_SUCCESS,
+  SELECT_OPTION,
   UserData,
 } from "../actions/user";
+import { Options } from "../interfaces/user";
 
 export interface UserState {
   isLoggedIn: boolean;
   isLoading: boolean;
   data: UserData | null;
   error: false;
+  selectedOption: Options;
 }
 
 const initialState: UserState = {
@@ -20,6 +23,7 @@ const initialState: UserState = {
   isLoading: false,
   data: null,
   error: false,
+  selectedOption: Options.PersonalData,
 };
 
 export interface UserAction {
@@ -63,6 +67,11 @@ const userReducer = (state = initialState, action: UserAction) => {
       return {
         ...state,
         isLoading: action.payload.isLoading,
+      };
+    case SELECT_OPTION:
+      return {
+        ...state,
+        selectedOption: action.payload.selectedOption,
       };
     default:
       return state;
