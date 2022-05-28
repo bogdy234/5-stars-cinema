@@ -1,5 +1,13 @@
 const CONSTANTS = {
   TEXT: {
+    ADMIN_RESERVATIONS: {
+      RESERVATION_ID: "Id-ul rezervarii",
+      SEARCH: "Cauta",
+      ID_ERROR: "Id-ul rezervarii este invalid.",
+      DELETE: "Sterge rezervarea",
+      NOT_FOUND: "Nu a fost gasita nicio rezervare cu aceste date.",
+      EDIT: "Modifica",
+    },
     EDIT_MOVIE_MODAL: {
       TITLE: "Titlu:",
       DESCRIPTION: "Descriere:",

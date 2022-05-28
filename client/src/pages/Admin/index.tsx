@@ -9,6 +9,7 @@ import AddTimeModal from "../../containers/AddTimeModal";
 import EditMovieModal from "../../containers/EditMovieModal";
 import { Movie } from "../../interfaces/movies";
 import { AdminNavOption } from "../../interfaces";
+import AdminReservations from "../../containers/AdminReservations";
 
 interface AdminProps {
   userData: { data: UserData };
@@ -60,17 +61,21 @@ const Admin: FC<AdminProps> = ({ userData }): ReactElement => {
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />
-        <MoviesTable
-          showAddMovieModal={() => setShowAddMovieModal(true)}
-          showAddTimeModal={(movieId: string) => {
-            setMovieId(movieId);
-            setShowAddTimeModal(true);
-          }}
-          showEditMovieModal={(movie) => {
-            setShowEditMovieModal(true);
-            setMovie(movie);
-          }}
-        />
+        {selectedOption === AdminNavOption.Movies ? (
+          <MoviesTable
+            showAddMovieModal={() => setShowAddMovieModal(true)}
+            showAddTimeModal={(movieId: string) => {
+              setMovieId(movieId);
+              setShowAddTimeModal(true);
+            }}
+            showEditMovieModal={(movie) => {
+              setShowEditMovieModal(true);
+              setMovie(movie);
+            }}
+          />
+        ) : (
+          <AdminReservations />
+        )}
       </div>
       <div></div>
     </div>

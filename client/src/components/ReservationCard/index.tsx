@@ -38,7 +38,7 @@ const ReservationCard: FC<ReservationCardProps> = ({
         <div className="w-14 bg-gray-400 h-full flex justify-center items-center">
           <div className="rotate-90 select-none">{RESERVATION}</div>
         </div>
-        <div className="m-8 flex flex-col gap-2">
+        <div className="m-2 md:m-8 flex flex-col gap-2">
           <div>
             {RESERVATION_ID} <span className="font-bold">{reservationId}</span>
           </div>

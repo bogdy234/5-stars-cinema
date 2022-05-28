@@ -3,6 +3,7 @@ import { UserData } from "../../actions/user";
 import api from "../../api";
 import ReservationCard from "../../components/ReservationCard";
 import CONSTANTS from "../../constants";
+import { UserReservation } from "../../interfaces/reservation";
 import { SeatPosition } from "../../interfaces/seat";
 import { Ticket } from "../../interfaces/ticket";
 import { formatDate } from "../../utils";
@@ -11,18 +12,6 @@ interface MyReservationsProps {
   userData?: {
     data: UserData;
   };
-}
-
-interface UserReservation {
-  _id: string;
-  bookedSeats: SeatPosition[];
-  movieId: string;
-  hallId: string;
-  movieTiming: Date;
-  ticketsType: Ticket;
-  hallNumber: number;
-  movieName: string;
-  totalPrice: number;
 }
 
 const { NO_RESERVATIONS } = CONSTANTS.TEXT.MY_RESERVATIONS;
