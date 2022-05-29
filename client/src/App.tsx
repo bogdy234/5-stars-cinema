@@ -9,8 +9,13 @@ import MyAccountContainer from "./pages/MyAccount/container";
 import Prices from "./pages/Prices";
 import MovieContainer from "./pages/Movie/movieContainer";
 import AdminContainer from "./pages/Admin/container";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "Five Stars Cinema";
+  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
