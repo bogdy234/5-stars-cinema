@@ -42,6 +42,8 @@ const BurgerMenu: FC<BurgerMenuProps> = ({
         return;
       }
       navigate("/my-account");
+    } else if (option === "Admin") {
+      navigate("/admin");
     }
   };
 
@@ -53,7 +55,7 @@ const BurgerMenu: FC<BurgerMenuProps> = ({
         <div className="w-8 h-0.5 bg-gray-300"></div>
         <Dropdown
           show={showList}
-          options={OPTIONS}
+          options={userData?.data?.isAdmin ? [...OPTIONS, "Admin"] : OPTIONS}
           onClickOption={onClickOption}
           hide={hide}
         />
