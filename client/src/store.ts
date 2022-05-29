@@ -6,13 +6,16 @@ import { persistReducer, persistStore } from "redux-persist"; // defaults to loc
 import adminReducer from "./reducers/admin";
 
 const persistConfig = {
-  key: "root",
+  key: "userReducer",
   storage,
 };
 
 // @ts-ignore
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
-const persistedAdminReducer = persistReducer(persistConfig, adminReducer);
+const persistedAdminReducer = persistReducer(
+  { key: "adminReducer", storage },
+  adminReducer
+);
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
