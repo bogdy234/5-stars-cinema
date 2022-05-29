@@ -9,10 +9,20 @@ interface MoviesTableProps {
   showAddMovieModal: () => void;
   showAddTimeModal: (movieId: string) => void;
   showEditMovieModal: (movie: Movie) => void;
+  showRunningTimesModal: (movie: Movie) => void;
 }
 
-const { TITLE, DELETE, EDIT, POSTER, YEAR, ADD_MOVIE, RUNNING_TIME, ADD } =
-  CONSTANTS.TEXT.MOVIES_TABLE;
+const {
+  TITLE,
+  DELETE,
+  EDIT,
+  POSTER,
+  YEAR,
+  ADD_MOVIE,
+  RUNNING_TIME,
+  ADD,
+  VIEW,
+} = CONSTANTS.TEXT.MOVIES_TABLE;
 
 const tdStyle = "border-2 collapse w-40 text-center";
 
@@ -20,6 +30,7 @@ const MoviesTable: FC<MoviesTableProps> = ({
   showAddMovieModal,
   showAddTimeModal,
   showEditMovieModal,
+  showRunningTimesModal,
 }): ReactElement => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -50,6 +61,13 @@ const MoviesTable: FC<MoviesTableProps> = ({
 
   const onClickAddRunningTime = (movieId: string) => {
     showAddTimeModal(movieId);
+  };
+
+  const onClickViewRunningTime = async (id: string) => {
+    const response = await api.get(`/movie?id=${id}`);
+    const json = await response.json();
+    console.log(json[0]);
+    showRunningTimesModal(json[0]);
   };
 
   return (
@@ -101,7 +119,12 @@ const MoviesTable: FC<MoviesTableProps> = ({
                 <Button
                   onClick={() => onClickAddRunningTime(movie._id)}
                   text={ADD}
-                  className="bg-blue-300 w-24 h-10 rounded text-black"
+                  className="bg-blue-300 w-24 h-10 rounded text-black mb-10"
+                />
+                <Button
+                  onClick={() => onClickViewRunningTime(movie._id)}
+                  text={VIEW}
+                  className="bg-blue-300 w-24 min-h-10 rounded text-black"
                 />
               </td>
             </tr>

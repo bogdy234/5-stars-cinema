@@ -1,5 +1,9 @@
 const CONSTANTS = {
   TEXT: {
+    VIEW_RUNNING_TIMES: {
+      HALL_NUMBER: "Numar sala",
+      DELETE: "Sterge",
+    },
     ADMIN_RESERVATIONS: {
       RESERVATION_ID: "Id-ul rezervarii",
       SEARCH: "Cauta",
@@ -58,6 +62,7 @@ const CONSTANTS = {
       ADD_MOVIE: "Adauga film",
       RUNNING_TIME: "Timp rulare",
       ADD: "Adauga",
+      VIEW: "Vezi rularile curente",
     },
     ADMIN_NAV: {
       MOVIES: "Filme",

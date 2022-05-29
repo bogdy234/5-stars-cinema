@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import CONSTANTS from "../../constants";
