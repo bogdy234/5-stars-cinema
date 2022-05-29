@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="w-8 h-8 text-xs sm: text-base sm:w-10 h-10 flex justify-center items-center cursor-pointer bg-green-700 hover:bg-red-700"
+  onClick={[MockFunction]}
+>
+  0/0
+</div>
+`;

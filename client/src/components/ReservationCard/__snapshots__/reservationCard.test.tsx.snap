@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="w-full"
+>
+  <div
+    className="w-[18rem] sm:w-[25rem] md:w-[31.25rem] h-[20rem] bg-gray-200 flex"
+  >
+    <div
+      className="w-14 bg-gray-400 h-full flex justify-center items-center"
+    >
+      <div
+        className="rotate-90 select-none"
+      >
+        Rezervare
+      </div>
+    </div>
+    <div
+      className="m-2 md:m-8 flex flex-col gap-2"
+    >
+      <div>
+        Rezervare 
+         
+        <span
+          className="font-bold"
+        >
+          2
+        </span>
+      </div>
+      <div>
+        Sala
+         
+        0
+      </div>
+      <div
+        className="font-bold"
+      >
+        batman
+      </div>
+      <div>
+        
+      </div>
+      <div>
+        Locuri: 
+      </div>
+      <div>
+        Bilet intreg:
+         
+        2
+      </div>
+      <div>
+        Bilet Copii/Elevi/Studenti:
+         
+        3
+      </div>
+      <div>
+        Pret total:
+         
+        0
+         lei
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<button
+  className="relative w-40 h-16 undefined"
+  onClick={[MockFunction]}
+  type="button"
+>
+  some text
+</button>
+`;

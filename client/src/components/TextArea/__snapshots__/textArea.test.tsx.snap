@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <label>
+    <textarea
+      className="w-full h-32 pl-4 pt-2 resize-none"
+      onChange={[Function]}
+      placeholder=""
+      value=""
+    />
+  </label>
+</div>
+`;

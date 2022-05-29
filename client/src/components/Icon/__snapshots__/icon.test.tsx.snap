@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="undefined"
+>
+  <img
+    alt="some-alt"
+    className="w-full h-full undefined "
+    src="/logout.svg"
+  />
+</div>
+`;

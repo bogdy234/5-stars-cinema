@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="flex items-center flex-col w-full sm:w-3/4 md:w-1/2 m-auto text-gray-300 mt-10 mb-10"
+>
+  <div>
+    Ecran
+  </div>
+  <div
+    className="h-4 w-full border-b-8 border-gray-400"
+  />
+  <div
+    className="grid mt-10 w-full justify-items-center gap-y-5"
+    style={
+      Object {
+        "gridTemplateColumns": "repeat(0, minmax(0, 1fr))",
+      }
+    }
+  />
+  <div
+    className="flex gap-10 mt-10 flex-col sm:flex-row"
+  >
+    <div
+      className="flex gap-4 items-center"
+    >
+      <div
+        className="w-8 h-8 bg-gray-500"
+      />
+      <div>
+        Indisponibil
+      </div>
+    </div>
+    <div
+      className="flex gap-4 items-center"
+    >
+      <div
+        className="w-8 h-8 bg-green-700"
+      />
+      <div>
+        Disponibil
+      </div>
+    </div>
+    <div
+      className="flex gap-4 items-center"
+    >
+      <div
+        className="w-8 h-8 bg-red-700"
+      />
+      <div>
+        Selectat
+      </div>
+    </div>
+  </div>
+  <div
+    className="self-start mt-10"
+  >
+    *Poti selecta un numar maxim de 5 locuri.
+  </div>
+</div>
+`;

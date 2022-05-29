@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className=""
+>
+  <label
+    className="undefined || ''"
+  >
+    <div
+      className="flex items-center relative undefined"
+    >
+      <input
+        className="w-full h-10 pl-4 pr-10 undefined undefined"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </label>
+</div>
+`;
