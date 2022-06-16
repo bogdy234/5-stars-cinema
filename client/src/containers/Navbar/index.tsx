@@ -64,7 +64,7 @@ const Navbar: FC<NavbarProps> = ({
                 <Button
                     onClick={toggle}
                     text={LOGIN}
-                    className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-20 h-16"
+                    className="rounded-lg mr-20 transition duration-300 text-white hover:text-black hover:bg-cyan-100 w-28 h-16"
                 />
             );
         }
