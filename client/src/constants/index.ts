@@ -186,7 +186,7 @@ const CONSTANTS = {
             CLOSE: "Inchide",
         },
         LOGIN_MODAL: {
-            LOGIN: "Login",
+            LOGIN: "Autentificare",
             EMAIL: "Email",
             PASSWORD: "Parola",
             SUBMIT: "Submit",
@@ -195,7 +195,7 @@ const CONSTANTS = {
             NO_ACCOUNT_YET: "Nu ai cont inca? Inregistreaza-te",
         },
         NAVBAR: {
-            LOGIN: "Login",
+            LOGIN: "Autentificare",
             MY_ACCOUNT: "Contul meu",
             HOME: "Acasa",
             PRICES: "Tarife",
