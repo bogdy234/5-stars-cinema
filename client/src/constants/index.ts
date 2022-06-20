@@ -51,6 +51,7 @@ const CONSTANTS = {
       IS_3D: "3D:",
       IS_PREMIERE: "Premiera:",
       CONFIRM: "Confirma",
+      SUCCESS: "Filmul a fost adăugat cu succes.",
     },
     MOVIES_TABLE: {
       TITLE: "Titlu",
