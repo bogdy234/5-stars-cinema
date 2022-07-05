@@ -1,13 +1,11 @@
 import { FC, ReactElement, useState } from "react";
-import {
-  loginError,
-  loginSuccess,
-  UserData,
-  UserLoginData,
-} from "../../actions/user";
+import { UserData, UserLoginData } from "../../actions/user";
 import api from "../../api";
 import Button from "../../components/Button";
+import ErrorModal from "../../components/ErrorModal";
+import SuccessModal from "../../components/SuccessModal";
 import CONSTANTS from "../../constants";
+import useShowModal from "../../utils/hooks/useShowModal";
 import InputError from "../InputError";
 
 interface ChangePassProps {
@@ -24,6 +22,7 @@ const {
   NEW_PASSWORD,
   SAVE,
   FILL_FIELD,
+  SUCCESS,
 } = CONSTANTS.TEXT.CHANGE_PASS;
 
 const inputsClassName = "w-80";
@@ -36,6 +35,8 @@ const ChangePass: FC<ChangePassProps> = ({ userData, login }): ReactElement => {
   const [errorCurrent, setErrorCurrent] = useState<string>("");
   const [errorNew, setErrorNew] = useState<string>("");
   const [errorConfirm, setErrorConfirm] = useState<string>("");
+
+  const { showError, showSuccess, toggleError, toggleSuccess } = useShowModal();
 
   const onChangeCurrentPassword = (newValue: string) => {
     setCurrentPassword(newValue);
@@ -61,32 +62,49 @@ const ChangePass: FC<ChangePassProps> = ({ userData, login }): ReactElement => {
       setErrorConfirm(FILL_FIELD);
       return;
     }
-    // userData.
     const data = {
       email: userData.data.email,
       password: currentPassword,
     };
-    login(data);
+    // login(data);
 
     // TODO: Handle success login -> change pass otherwise show errors
     const res = await api.post(data, CONSTANTS.SERVER_PATHS.LOGIN);
     if (res.status === 201) {
       const jsonRes = await res.json();
-      if (loginSuccess) {
-        // setMatchShow(true);
-        loginSuccess(jsonRes.data);
+      const userId = jsonRes.data._id;
+
+      const changePassData = {
+        id: userId,
+        updatedValue: {
+          password: newPassword,
+        },
+      };
+      const changePassResponse = await api.put(
+        changePassData,
+        CONSTANTS.SERVER_PATHS.USER
+      );
+      const jsonChangePass = await changePassResponse.json();
+      if (changePassResponse.status === 201) {
+        console.log(jsonChangePass);
+        toggleSuccess();
+      } else {
+        toggleError();
       }
     } else {
-      if (loginError) {
-        // setNoMatchShow(true);
-        loginError();
-      }
+      toggleError();
     }
   };
 
   return (
     <div>
       <div className="text-white text-2xl mb-6">{CHANGE_PASSWORD}</div>
+      <ErrorModal showModal={showError} onClose={toggleError} />
+      <SuccessModal
+        showModal={showSuccess}
+        onClose={toggleSuccess}
+        message={SUCCESS}
+      />
       <InputError
         value={currentPassword}
         onChange={onChangeCurrentPassword}

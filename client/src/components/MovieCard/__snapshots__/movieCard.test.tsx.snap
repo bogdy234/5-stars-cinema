@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="w-[340px] h-[230px] flex justify-self-center md:hover:scale-105 transition-hover"
+  className="w-[400px] h-[230px] flex justify-self-center md:hover:scale-105 transition-hover"
 >
   <div
     className="w-full h-full object-cover md:hover:opacity-70 transition-all"
@@ -15,7 +15,7 @@ exports[`renders correctly 1`] = `
     />
   </div>
   <div
-    className="pl-4 bg-gray-300 min-w-[170px] pr-4"
+    className="pl-4 bg-gray-300 min-w-[200px] pr-4"
   >
     <div
       className="font-medium mt-2"

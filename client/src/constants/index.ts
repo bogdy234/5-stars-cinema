@@ -120,6 +120,7 @@ const CONSTANTS = {
       CHANGE_PASSWORD: "Schimba parola",
       SAVE: "Salveaza",
       FILL_FIELD: "Acest camp trebuie completat.",
+      SUCCESS: "Parola a fost schimbata cu succes!",
     },
     MY_ACCOUNT_DATA: {
       PERSONAL_DATA: "Date personale",
@@ -228,8 +229,8 @@ const CONSTANTS = {
     SM: "768px",
   },
   // SERVER: "http://192.168.0.248:4000",
-  // SERVER: "http://localhost:4000",
-  SERVER: "https://five-stars-cinema.herokuapp.com",
+  SERVER: "http://localhost:4000",
+  // SERVER: "https://five-stars-cinema.herokuapp.com",
   SERVER_PATHS: {
     LOGIN: "/user/login",
     USER: "/user",
