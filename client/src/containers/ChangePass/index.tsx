@@ -86,7 +86,6 @@ const ChangePass: FC<ChangePassProps> = ({ userData, login }): ReactElement => {
       );
       const jsonChangePass = await changePassResponse.json();
       if (changePassResponse.status === 201) {
-        console.log(jsonChangePass);
         toggleSuccess();
       } else {
         toggleError();

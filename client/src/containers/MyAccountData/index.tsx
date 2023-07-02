@@ -43,8 +43,6 @@ const MyAccountData: FC<MyAccountDataProps> = ({ userData }): ReactElement => {
       },
     };
     const response = await api.put(data, USER);
-    console.log(response);
-    console.log(await response.json());
   };
 
   return (

@@ -37,7 +37,6 @@ const ViewRunningTimes: FC<ViewRunningTimesProps> = ({
     setMovie(jsonResponse[0]);
   }, [movieId]);
 
-  console.log(movie);
   const getRunningTimes = useCallback(async () => {
     // const runningTimes: RunningTime[] = [];
     movie?.runningTimes.forEach(async (runningTime) => {

@@ -56,7 +56,6 @@ const AddTimeModal: FC<AddTimeModalProps> = ({
     };
     const putResponse = await api.put(data, "/movie");
     const jsonPutResponse = await putResponse.json();
-    console.log(jsonPutResponse);
   };
 
   const onChangeHall = (newValue: string) => {

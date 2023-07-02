@@ -165,7 +165,6 @@ const EditMovieModal: FC<EditMovieModalProps> = ({
     };
     const response = await api.put(data, "/movie");
     const json = await response.json();
-    console.log(json);
     if (response.status === 201) {
       toggleSuccess();
     } else {
