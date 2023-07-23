@@ -9,7 +9,7 @@ const MoviesArea: FC<MoviesAreaProps> = (): ReactElement => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const getMovies = async () => {
-            const data = await api.get("/movie/getAllMovies");
+            const data = await api.get("/movie/get-all-movies");
             const jsonData = await data.json();
             setMovies(jsonData);
         };
@@ -17,10 +17,8 @@ const MoviesArea: FC<MoviesAreaProps> = (): ReactElement => {
     }, []);
 
     return (
-        <div className={`w-5/6 mx-auto mt-20 mb-20`}>
-            <div
-                className={`flex items-center flex-col md:gap-x-14 lg:gap-x-0 md:grid md:grid-cols-2 gap-y-10`}
-            >
+        <div className={`w-5/6 mx-auto min-h-screen mt-20 mb-20`}>
+            <div className={`flex items-center flex-col md:gap-x-14 lg:gap-x-0 md:grid lg:grid-cols-2 gap-y-10`}>
                 {movies &&
                     movies.map((movie: MovieInterface, index: number) => (
                         <MovieCard

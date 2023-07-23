@@ -17,11 +17,7 @@ const { HOME, LOGIN, PRICES, ADMIN } = CONSTANTS.TEXT.NAVBAR;
 const { SM } = CONSTANTS.SCREENS;
 const { MY_ACCOUNT } = CONSTANTS.ROUTES;
 
-const Navbar: FC<NavbarProps> = ({
-    userData,
-    triggerLogin,
-    setTriggerLoginFalse,
-}: NavbarProps): ReactElement => {
+const Navbar: FC<NavbarProps> = ({ userData, triggerLogin, setTriggerLoginFalse }: NavbarProps): ReactElement => {
     const matches = useMediaQuery(`(min-width:${SM})`);
     const navigate = useNavigate();
     const [showLogin, setShowLogin] = useState<boolean>(false);
@@ -32,6 +28,8 @@ const Navbar: FC<NavbarProps> = ({
             setTriggerLoginFalse();
         }
     }, [setTriggerLoginFalse, triggerLogin]);
+
+    console.log(userData);
 
     const toggle = () => {
         if (userData?.isLoggedIn) {
@@ -76,12 +74,7 @@ const Navbar: FC<NavbarProps> = ({
 
     const renderLogin = () => {
         if (showLogin) {
-            return (
-                <LoginModalContainer
-                    showModal={showLogin}
-                    closeModal={toggle}
-                />
-            );
+            return <LoginModalContainer showModal={showLogin} closeModal={toggle} />;
         }
 
         return null;

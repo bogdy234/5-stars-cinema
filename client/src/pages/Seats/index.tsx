@@ -19,15 +19,8 @@ const { CONFIRM, SUCCESS } = CONSTANTS.TEXT.SEATS;
 interface SeatsProps {
     userData: { data: UserData };
 }
-const {
-    NORMAL_TICKETS,
-    REDUCED_TICKETS,
-    ERROR_NOT_ENOUGH,
-    ERROR_NO_SEATS,
-    ERROR_TYPES,
-    TOTAL,
-    HALL,
-} = CONSTANTS.TEXT.SEATS_PAGE;
+const { NORMAL_TICKETS, REDUCED_TICKETS, ERROR_NOT_ENOUGH, ERROR_NO_SEATS, ERROR_TYPES, TOTAL, HALL } =
+    CONSTANTS.TEXT.SEATS_PAGE;
 
 const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     const navigate = useNavigate();
@@ -45,22 +38,16 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     const [hallNumber, setHallNumber] = useState<number>(0);
 
     const getHallData = useCallback(async () => {
-        const hallData = await api.get("/hall?id=62516463cef32ef16bea456f");
+        const hallData = await api.get(`/hall?id=${hallId}`);
         const jsonHallData = await hallData.json();
-        setRows(jsonHallData[0].rows);
-        setColumns(jsonHallData[0].columns);
+        setRows(jsonHallData.rows);
+        setColumns(jsonHallData.columns);
+        setHallNumber(jsonHallData.number);
     }, []);
-
-    const getHallNumber = useCallback(async () => {
-        const response = await api.get(`/hall?id=${hallId}`);
-        const json = await response.json();
-        setHallNumber(json[0].number);
-    }, [hallId]);
 
     useLayoutEffect(() => {
         getHallData();
-        getHallNumber();
-    }, [getHallData, getHallNumber]);
+    }, []);
 
     const getReservedSeats = useCallback(async () => {
         const reservedSeats = await api.get(
@@ -79,16 +66,10 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
         if (!selectedSeats.length) {
             setConfirmError(ERROR_NO_SEATS);
             return;
-        } else if (
-            ticketNumbers.normal + ticketNumbers.reduced >
-            selectedSeats.length
-        ) {
+        } else if (ticketNumbers.normal + ticketNumbers.reduced > selectedSeats.length) {
             setConfirmError(ERROR_NOT_ENOUGH);
             return;
-        } else if (
-            ticketNumbers.normal + ticketNumbers.reduced <
-            selectedSeats.length
-        ) {
+        } else if (ticketNumbers.normal + ticketNumbers.reduced < selectedSeats.length) {
             setConfirmError(ERROR_TYPES);
             return;
         }
@@ -103,10 +84,7 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
             hallId,
             movieName: movieTitle,
             hallNumber,
-            totalPrice: (
-                getPrice() * ticketNumbers.normal +
-                ticketNumbers.reduced * getPrice() * 0.8
-            ).toFixed(2),
+            totalPrice: (getPrice() * ticketNumbers.normal + ticketNumbers.reduced * getPrice() * 0.8).toFixed(2),
             ticketsType: {
                 normal: ticketNumbers.normal,
                 reduced: ticketNumbers.reduced,
@@ -124,10 +102,7 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     };
 
     const incrementNormal = () => {
-        if (
-            ticketNumbers.normal + ticketNumbers.reduced >=
-            selectedSeats.length
-        ) {
+        if (ticketNumbers.normal + ticketNumbers.reduced >= selectedSeats.length) {
             return;
         }
         setTicketNumbers({
@@ -147,10 +122,7 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
     };
 
     const incrementReduced = () => {
-        if (
-            ticketNumbers.reduced + ticketNumbers.normal >=
-            selectedSeats.length
-        ) {
+        if (ticketNumbers.reduced + ticketNumbers.normal >= selectedSeats.length) {
             return;
         }
         setTicketNumbers({
@@ -180,14 +152,12 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
         return getPriceForDateHour(isMovie3D, isAfterFive, isWeekend);
     };
 
+    console.log(hallNumber);
+
     return (
         <div>
             <NavbarContainer />
-            <SuccessModal
-                showModal={showSuccess}
-                onClose={onCloseModal}
-                message={SUCCESS}
-            />
+            <SuccessModal showModal={showSuccess} onClose={onCloseModal} message={SUCCESS} />
             <div className="text-white text-center text-2xl mt-6">
                 {HALL} {hallNumber}
             </div>
@@ -216,16 +186,9 @@ const Seats: FC<SeatsProps> = ({ userData }): ReactElement => {
                     decrementNumber={decrementReduced}
                 />
             </div>
-            {confirmError ? (
-                <div className="text-red-500 text-center">{confirmError}</div>
-            ) : null}
+            {confirmError ? <div className="text-red-500 text-center">{confirmError}</div> : null}
             <div className="text-lg text-white text-center">
-                {TOTAL}:{" "}
-                {(
-                    getPrice() * ticketNumbers.normal +
-                    ticketNumbers.reduced * getPrice() * 0.8
-                ).toFixed(2)}{" "}
-                lei
+                {TOTAL}: {(getPrice() * ticketNumbers.normal + ticketNumbers.reduced * getPrice() * 0.8).toFixed(2)} lei
             </div>
             <div className={`flex justify-center mb-10`}>
                 <Button
